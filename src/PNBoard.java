@@ -17,7 +17,7 @@ public class PNBoard extends JPanel{
 		try
 		{
 			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-			InputStream input = classLoader.getResourceAsStream("Tabuleiro-Original.jpg");
+			InputStream input = classLoader.getResourceAsStream("Tabuleiro-Clue-A.jpg");
 			i = ImageIO.read(input);
 		}
 		catch(IOException e){

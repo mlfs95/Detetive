@@ -14,6 +14,7 @@ public class NewGameScreen extends JFrame implements ActionListener, ItemListene
 	private JCheckBox cb[] = new JCheckBox[6];
 	private JLabel image[] = new JLabel[6];
 	private int countChecked = 0;
+	private int cbCount;
 	
 	public NewGameScreen (String s, int width, int height){
 		
@@ -73,8 +74,6 @@ public class NewGameScreen extends JFrame implements ActionListener, ItemListene
 //		cb[5].addItemListener(this);
 		
 		ActionListener cbAction = new ActionListener(){
-			
-			int cbCount;
 			
 			public void actionPerformed(ActionEvent event) {
 				
@@ -156,8 +155,41 @@ public class NewGameScreen extends JFrame implements ActionListener, ItemListene
 		if(e.getSource() == b1){
 			this.setVisible(false);
 			BoardScreen f = BoardScreen.getInstance();
-			f.setSize(853, 856);
+			f.setSize(700, 725);
 			f.setVisible(true);
+			
+			Player players[] = new Player[cbCount];
+			int i = 0;
+			
+			if (cb[0].isSelected()){
+				players[i] = new Player(Player.Character.Scarlet);
+				i++;
+			}
+			
+			if (cb[1].isSelected()){
+				players[i] = new Player(Player.Character.Plum);
+				i++;
+			}
+			
+			if (cb[2].isSelected()){
+				players[i] = new Player(Player.Character.Peacock);
+				i++;
+			}
+			
+			if (cb[3].isSelected()){
+				players[i] = new Player(Player.Character.Green);
+			}
+			
+			if (cb[4].isSelected()){
+				players[i] = new Player(Player.Character.Mustard);
+				i++;
+			}
+			
+			if (cb[5].isSelected()){
+				players[i] = new Player(Player.Character.White);
+			}
+			
+			f.players = players;
 			
 			dispose();
 		}

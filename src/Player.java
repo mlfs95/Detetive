@@ -1,9 +1,9 @@
 
 public class Player {
     
-    int fila;
-    int coluna;
-    Character personagem;
+    public int fila;
+    public int coluna;
+    public Character personagem;
     
     public enum Character{
         

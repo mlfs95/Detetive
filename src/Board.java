@@ -1,9 +1,14 @@
 
 public class Board {
 
-	int linhaMax;
-	int colunaMax;
-	Casa[][] Board;
+	public static BoardScreen instancia = null;
+	private int linhaMax;
+	private int colunaMax;
+	public Casa[][] Board;
+	private int casaWidth = 24;
+	private int casaHeight = 25;
+	private int xMin = 52;
+	private int yMin = 77;
 	
 	public enum Casa {
 		livre, ocupado, fora,
@@ -26,6 +31,31 @@ public class Board {
 		Board = new Casa[25][24];
 		
 		initializeBoard();
+	}
+	
+	public static BoardScreen getInstance(){
+		if(instancia == null){
+			instancia = new BoardScreen("Detetive",700,725);
+		} 
+		return instancia;
+	}
+	
+	public int[] getCasa(int x, int y){
+		
+		int linha = (y-yMin)/casaWidth;
+		int coluna = (x-xMin)/casaHeight;
+		
+		System.out.println(linha);
+		System.out.println(coluna);
+		
+		if (x<xMin || y<yMin || linha>=linhaMax || coluna>=colunaMax){
+			System.out.println("fora");
+			
+			return new int[] {-1, -1};
+		}
+		
+		return new int[] {linha, coluna};
+		
 	}
 	
 	private void initializeBoard() {
@@ -201,6 +231,8 @@ public class Board {
 		// entradas escritório
 		Board[20][17] = Casa.escritorioL;
 	}
+	
+	
 }
 
 
