@@ -13,7 +13,7 @@ import java.util.Random;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class BoardScreen extends JFrame implements MouseListener{
+public class BoardScreen extends JFrame implements ActionListener,MouseListener{
 	
 	public static BoardScreen instancia = null;
 	public Player players[];
@@ -22,15 +22,16 @@ public class BoardScreen extends JFrame implements MouseListener{
 	private int diceMinY = 359;
 	private JLabel diceImage = new JLabel();
 	private Image i;
+	private JButton b1;
 	
 	public BoardScreen(String s, int width, int height){
 		
 		super(s);
 		
-		PNBoard p = new PNBoard(width,height);
+		PNBoard p = PNBoard.getInstance();//new PNBoard(width,height);
 		getContentPane().add(p);
 		
-		board = new Board();
+		//board = new Board();
 		
 		diceImage.setBounds(diceMinX, diceMinY, 95, 106);
 		p.add(diceImage);
@@ -38,6 +39,14 @@ public class BoardScreen extends JFrame implements MouseListener{
 		addMouseListener(this);
 		
 		rollDices();
+		
+		b1 = new JButton("Rolar os dados");
+		p.add(b1);
+		
+		b1.setSize(200, 50);
+		b1.setLocation(width/2-b1.getSize().width/2, height*14/16-b1.getSize().height/2);
+		
+		b1.addActionListener(this);
 		
 	}
 	
@@ -111,6 +120,21 @@ public class BoardScreen extends JFrame implements MouseListener{
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == b1 ){
+			//this.setVisible(false);
+			DiceScreen f = DiceScreen.getInstance();
+			f.setSize(300,300);
+			f.setVisible(true);
+			
+		}
+		else{
+			System.exit(1);
+		}
 		
 	}
 

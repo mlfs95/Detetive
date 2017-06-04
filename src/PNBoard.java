@@ -10,7 +10,7 @@ import javax.swing.*;
 public class PNBoard extends JPanel{
 	
 	private Image i;
-	
+	public static PNBoard instancia = null;
 	public PNBoard(int width, int height){
 		
 		this.setSize(width, height);
@@ -24,6 +24,13 @@ public class PNBoard extends JPanel{
 			System.out.println(e.getMessage());
 			System.exit(1);
 		}
+	}
+	
+	public static PNBoard getInstance(){
+		if(instancia == null){
+			instancia = new PNBoard(0,0);
+		} 
+		return instancia;
 	}
 	
 	 @Override

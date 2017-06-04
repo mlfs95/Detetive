@@ -83,7 +83,7 @@ public class NewGameScreen extends JFrame implements ActionListener, ItemListene
 					if(cb[i].isSelected())
 						cbCount += 1;
 				
-				if (cbCount > 3)
+				if (cbCount >= 3)
 					b1.setEnabled(true);
 				
 				else
