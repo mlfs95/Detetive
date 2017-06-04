@@ -154,9 +154,6 @@ public class NewGameScreen extends JFrame implements ActionListener, ItemListene
 		
 		if(e.getSource() == b1){
 			this.setVisible(false);
-			BoardScreen f = BoardScreen.getInstance();
-			f.setSize(700, 725);
-			f.setVisible(true);
 			
 			Player players[] = new Player[cbCount];
 			int i = 0;
@@ -189,7 +186,9 @@ public class NewGameScreen extends JFrame implements ActionListener, ItemListene
 				players[i] = new Player(Player.Character.White);
 			}
 			
-			f.players = players;
+			BoardScreen f = BoardScreen.getInstance(players);
+			f.setSize(700, 725);
+			f.setVisible(true);
 			
 			dispose();
 		}

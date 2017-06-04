@@ -3,6 +3,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,8 +24,9 @@ public class BoardScreen extends JFrame implements ActionListener,MouseListener{
 	private JLabel diceImage = new JLabel();
 	private Image i;
 	private JButton b1;
+	private JPanel playerPanel[];
 	
-	public BoardScreen(String s, int width, int height){
+	public BoardScreen(String s, int width, int height, Player players[]){
 		
 		super(s);
 		
@@ -48,11 +50,18 @@ public class BoardScreen extends JFrame implements ActionListener,MouseListener{
 		
 		b1.addActionListener(this);
 		
+		this.players = players;
+		playerPanel = new JPanel[players.length];
+		for (int i=0; i<players.length; i++){
+			playerPanel[i] = new JPanel();
+		}
+		drawPlayers();
+		
 	}
 	
-	public static BoardScreen getInstance(){
+	public static BoardScreen getInstance(Player players[]){
 		if(instancia == null){
-			instancia = new BoardScreen("Detetive",700,725);
+			instancia = new BoardScreen("Detetive", 700, 725, players);
 		} 
 		return instancia;
 	}
@@ -85,9 +94,21 @@ public class BoardScreen extends JFrame implements ActionListener,MouseListener{
 	
 
 	private void drawPlayers(){
-		
-		
+		int i;
+		for ( i=0; i<players.length; i++){
+			System.out.println(players[i].personagem);
+			
+			//paintComponent(playerPanel[i].getGraphics(), players[i]);
+		}
 	}
+	
+	public void paintComponent(Graphics g, Player player) {
+		System.out.println(player.coluna);
+		System.out.println(board.Board[1][1]);
+		int[] coord = board.getXY(player.fila, player.coluna);
+		
+        g.drawOval(coord[0], coord[1], 12, 12);
+    }
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {

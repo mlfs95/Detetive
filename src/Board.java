@@ -1,7 +1,7 @@
 
 public class Board {
 
-	public static BoardScreen instancia = null;
+	public static Board instancia = null;
 	private int linhaMax;
 	private int colunaMax;
 	public Casa[][] Board;
@@ -33,9 +33,9 @@ public class Board {
 		initializeBoard();
 	}
 	
-	public static BoardScreen getInstance(){
+	public static Board getInstance(){
 		if(instancia == null){
-			instancia = new BoardScreen("Detetive",700,725);
+			instancia = new Board();
 		} 
 		return instancia;
 	}
@@ -56,6 +56,14 @@ public class Board {
 		
 		return new int[] {linha, coluna};
 		
+	}
+	
+	public int[] getXY(int linha, int coluna){
+		
+		int y = coluna*casaWidth+yMin;
+		int x = linha*casaHeight+xMin;
+		
+		return new int[] {x, y};
 	}
 	
 	private void initializeBoard() {
