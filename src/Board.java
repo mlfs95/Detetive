@@ -5,10 +5,10 @@ public class Board {
 	private int linhaMax;
 	private int colunaMax;
 	public Casa[][] Board;
-	private int casaWidth = 24;
+	private int casaWidth = 25;
 	private int casaHeight = 25;
 	private int xMin = 52;
-	private int yMin = 77;
+	private int yMin = 55;
 	
 	public enum Casa {
 		livre, ocupado, fora,

@@ -67,7 +67,6 @@ public class PNBoard extends JPanel implements MouseListener{
 	        super.paintComponent(g);
 	        g.drawImage(i, 0, 0, null);
 	        Graphics2D g2d  = (Graphics2D) g;
-	        Player players[];
 	        
 //	       addMouseListener(this);
 	       
@@ -92,14 +91,17 @@ public class PNBoard extends JPanel implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
+		
 		 	int x=e.getX();
 		    int y=e.getY();
-		    int coords[] = board.instancia.getCasa(x, y);
+		    int coords[] = Board.instancia.getCasa(x, y);
 		    System.out.println(coords[0]);
-		    players[turn].setColuna(coords[0]);
-		    players[turn].setFila(coords[1]);
+		    players[turn].setColuna(coords[1]);
+		    players[turn].setFila(coords[0]);
 		    
 		    turn++;
+		    
+		    System.out.println("Y: " + y);
 		    
 		    if (turn==players.length)
 		    	turn=0;
