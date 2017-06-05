@@ -99,6 +99,8 @@ public class PNBoard extends JPanel implements MouseListener{
 		    players[turn].setColuna(coords[0]);
 		    players[turn].setFila(coords[1]);
 		    
+		    turn++;
+		    
 		    if (turn==players.length)
 		    	turn=0;
 		    

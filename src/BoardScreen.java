@@ -14,7 +14,7 @@ import java.util.Random;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class BoardScreen extends JFrame implements ActionListener,MouseListener{
+public class BoardScreen extends JFrame implements ActionListener{
 	
 	public static BoardScreen instancia = null;
 	public Player players[];
@@ -38,10 +38,6 @@ public class BoardScreen extends JFrame implements ActionListener,MouseListener{
 		diceImage.setBounds(diceMinX, diceMinY, 95, 106);
 		p.add(diceImage);
 		
-		addMouseListener(this);
-		
-		rollDices();
-		
 		b1 = new JButton("Rolar os dados");
 		p.add(b1);
 		
@@ -50,7 +46,6 @@ public class BoardScreen extends JFrame implements ActionListener,MouseListener{
 		
 		b1.addActionListener(this);
 		
-		//drawPlayers();
 		
 	}
 	
@@ -61,42 +56,6 @@ public class BoardScreen extends JFrame implements ActionListener,MouseListener{
 		return instancia;
 	}
 	
-	private int rollDices() {
-		
-		Random randomGenerator = new Random();
-		int diceNumber = randomGenerator.nextInt(6)+1;
-		
-		System.out.println(diceNumber);
-		
-//		String dado = "dado";
-//		dado = dado + String.valueOf(diceNumber) + ".jpg";
-//		
-//		try {
-//			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-//			InputStream input = classLoader.getResourceAsStream(dado);
-//			i = ImageIO.read(input);
-//			diceImage.setBounds(400, 400, 95, 106);
-//			diceImage.setIcon( new ImageIcon(i));
-//		}
-//		catch(IOException e) {
-//			System.out.println("bla");
-//			System.out.println(e.getMessage());
-//			System.exit(1);
-//		}
-		
-		return diceNumber;
-	}
-	
-
-	private void drawPlayers(){
-		int i;
-		for ( i=0; i<players.length; i++){
-			System.out.println(players[i].getPersonagem());
-			
-			//paintComponent(playerPanel[i].getGraphics(), players[i]);
-		}
-	}
-	
 	public void paintComponent(Graphics g, Player player) {
 		System.out.println(player.getColuna());
 		System.out.println(board.Board[1][1]);
@@ -104,41 +63,6 @@ public class BoardScreen extends JFrame implements ActionListener,MouseListener{
 		
         g.drawOval(coord[0], coord[1], 12, 12);
     }
-	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		
-	    int x=e.getX();
-	    int y=e.getY();
-	    
-	    System.out.println("x: " + x + " y: " + y);
-	    
-	    board.getCasa(x, y);
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
