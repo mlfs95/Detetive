@@ -175,6 +175,7 @@ public class NewGameScreen extends JFrame implements ActionListener, ItemListene
 			
 			if (cb[3].isSelected()){
 				players[i] = new Player(Player.Character.Green);
+				i++;
 			}
 			
 			if (cb[4].isSelected()){
@@ -184,12 +185,14 @@ public class NewGameScreen extends JFrame implements ActionListener, ItemListene
 			
 			if (cb[5].isSelected()){
 				players[i] = new Player(Player.Character.White);
+				i++;
 			}
-			
-			BoardScreen f = BoardScreen.getInstance(players);
+			System.out.println(i);
+			BoardScreen f = BoardScreen.getInstance();
 			f.setSize(700, 725);
 			f.setVisible(true);
-			
+			f.players = players;
+			System.out.println("coluna players[1]" + players[0].getColuna());
 			dispose();
 		}
 		else{

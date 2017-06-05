@@ -1,9 +1,11 @@
+import java.awt.*;
 
 public class Player {
     
-    public int fila;
-    public int coluna;
-    public Character personagem;
+    private int fila;
+    private int coluna;
+    private Character personagem;
+    private Color color;
     
     public enum Character{
         
@@ -14,32 +16,59 @@ public class Player {
         
         this.personagem = personagem;
         
-        switch (personagem) {
-                
-            case Green:
-                fila=14;
-                coluna=0;
-                
-            case Mustard:
-                fila=0;
-                coluna=17;
-                
-            case Peacock:
-                fila=24;
-                coluna=6;
-                
-            case Plum:
-                fila=24;
-                coluna=19;
-                
-            case Scarlet:
-                fila=7;
-                coluna=14;
-                
-            case White:
-                fila=9;
-                coluna=0;
+        if (personagem == Character.Green){
+        	fila=0;
+            coluna=14;
+            color = Color.GREEN;
+        }
+        else if (personagem == Character.Mustard){
+        	fila=17;
+            coluna=0;
+            color = Color.YELLOW;
+        }
+        else if (personagem == Character.Peacock){
+        	fila=6;
+            coluna=23;
+            color = Color.BLUE;
+        }
+        else if (personagem == Character.Plum){
+        	fila=19;
+            coluna=23;
+            color = Color.CYAN;
+        }
+        else if (personagem == Character.Scarlet){
+        	fila=24;
+            coluna=7;
+            color = Color.RED;
+        }
+        else {
+            fila=0;
+            coluna=9;
+            color = Color.WHITE;
         }
     }
-
+    
+    public void setFila(int fila){
+    	this.fila = fila;
+    }
+    
+    public void setColuna(int coluna){
+    	this.coluna = coluna;
+    }
+    
+    public int getFila(){
+    	return fila;
+    }
+    
+    public int getColuna(){
+    	return coluna;
+    }
+    
+    public Character getPersonagem(){
+    	return personagem;
+    }
+    
+    public Color getColor(){
+    	return color;
+    }
 }

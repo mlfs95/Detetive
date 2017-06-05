@@ -14,7 +14,7 @@ import java.util.Random;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class BoardScreen extends JFrame implements ActionListener{//,MouseListener{
+public class BoardScreen extends JFrame implements ActionListener,MouseListener{
 	
 	public static BoardScreen instancia = null;
 	public Player players[];
@@ -22,25 +22,25 @@ public class BoardScreen extends JFrame implements ActionListener{//,MouseListen
 	private int diceMinX = 316;
 	private int diceMinY = 359;
 	private JLabel diceImage = new JLabel();
-	private Image i;
 	private JButton b1;
-	private JPanel playerPanel[];
 	
-	public BoardScreen(String s, int width, int height, Player players[]){
+	public BoardScreen(String s, int width, int height){
 		
 		super(s);
+		
+		board = Board.getInstance();
 		
 		PNBoard p = PNBoard.getInstance();//new PNBoard(width,height);
 		getContentPane().add(p);
 		
 		//board = new Board();
 		
-		//diceImage.setBounds(diceMinX, diceMinY, 95, 106);
-	//	p.add(diceImage);
+		diceImage.setBounds(diceMinX, diceMinY, 95, 106);
+		p.add(diceImage);
 		
-	//	addMouseListener(this);
+		addMouseListener(this);
 		
-		//rollDices();
+		rollDices();
 		
 		b1 = new JButton("Rolar os dados");
 		p.add(b1);
@@ -50,73 +50,70 @@ public class BoardScreen extends JFrame implements ActionListener{//,MouseListen
 		
 		b1.addActionListener(this);
 		
-		/*this.players = players;
-		playerPanel = new JPanel[players.length];
-		for (int i=0; i<players.length; i++){
-			playerPanel[i] = new JPanel();
-		}
-		drawPlayers(); */
+		//drawPlayers();
 		
 	}
 	
-	public static BoardScreen getInstance(Player players[]){
+	public static BoardScreen getInstance(){
 		if(instancia == null){
-			instancia = new BoardScreen("Detetive", 700, 725, players);
+			instancia = new BoardScreen("Detetive", 700, 725);
 		} 
 		return instancia;
 	}
 	
-	/*private int rollDices() {
+	private int rollDices() {
 		
 		Random randomGenerator = new Random();
 		int diceNumber = randomGenerator.nextInt(6)+1;
 		
 		System.out.println(diceNumber);
 		
-		String dado = "dado";
-		dado = dado + String.valueOf(diceNumber) + ".jpg";
-		
-		try {
-			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-			InputStream input = classLoader.getResourceAsStream(dado);
-			i = ImageIO.read(input);
-			diceImage.setBounds(400, 400, 95, 106);
-			diceImage.setIcon( new ImageIcon(i));
-		}
-		catch(IOException e) {
-			System.out.println("bla");
-			System.out.println(e.getMessage());
-			System.exit(1);
-		}
+//		String dado = "dado";
+//		dado = dado + String.valueOf(diceNumber) + ".jpg";
+//		
+//		try {
+//			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+//			InputStream input = classLoader.getResourceAsStream(dado);
+//			i = ImageIO.read(input);
+//			diceImage.setBounds(400, 400, 95, 106);
+//			diceImage.setIcon( new ImageIcon(i));
+//		}
+//		catch(IOException e) {
+//			System.out.println("bla");
+//			System.out.println(e.getMessage());
+//			System.exit(1);
+//		}
 		
 		return diceNumber;
-	} */
+	}
 	
 
-/*	private void drawPlayers(){
+	private void drawPlayers(){
 		int i;
 		for ( i=0; i<players.length; i++){
-			System.out.println(players[i].personagem);
+			System.out.println(players[i].getPersonagem());
 			
 			//paintComponent(playerPanel[i].getGraphics(), players[i]);
 		}
-	} */
+	}
 	
-/*	public void paintComponent(Graphics g, Player player) {
-		System.out.println(player.coluna);
+	public void paintComponent(Graphics g, Player player) {
+		System.out.println(player.getColuna());
 		System.out.println(board.Board[1][1]);
-		int[] coord = board.getXY(player.fila, player.coluna);
+		int[] coord = board.getXY(player.getFila(), player.getColuna());
 		
         g.drawOval(coord[0], coord[1], 12, 12);
-    } */
+    }
 	
-/*	@Override
+	@Override
 	public void mouseClicked(MouseEvent e) {
+		
 	    int x=e.getX();
 	    int y=e.getY();
+	    
 	    System.out.println("x: " + x + " y: " + y);
-	 //   board.getCasa(x, y);
-	   
+	    
+	    board.getCasa(x, y);
 	}
 
 	@Override
@@ -141,7 +138,7 @@ public class BoardScreen extends JFrame implements ActionListener{//,MouseListen
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
-	} */
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -156,6 +153,6 @@ public class BoardScreen extends JFrame implements ActionListener{//,MouseListen
 			System.exit(1);
 		}
 		
-	} 
+	}
 
 }

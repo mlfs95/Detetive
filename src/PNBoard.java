@@ -19,6 +19,7 @@ public class PNBoard extends JPanel implements MouseListener{
 	private JPanel playerPanel[];
 	private Player.Character player;
 	private int x1 = 20, y1 = 20;
+	private int turn = 0;
 	
 	public PNBoard(int width, int height){
 		
@@ -58,15 +59,29 @@ public class PNBoard extends JPanel implements MouseListener{
 		}
 	} */
 	
+	
+	
 	 @Override
 	    protected void paintComponent(Graphics g) {
+		 	System.out.println("xablau");
 	        super.paintComponent(g);
 	        g.drawImage(i, 0, 0, null);
 	        Graphics2D g2d  = (Graphics2D) g;
+	        Player players[];
 	        
-	        g2d.setColor(Color.BLACK);
-	        g2d.fillOval(x1, y1, 10, 10);
-	       addMouseListener(this);
+//	       addMouseListener(this);
+	       
+	       players = BoardScreen.instancia.players;
+	       System.out.println(players.length);
+	       
+	       for (int i = 0; i<players.length; i++){
+	    	   System.out.println(players[i].getPersonagem() + ": " + players[i].getColuna());
+	    	   int coord[] = board.instancia.getXY(players[i].getFila(), players[i].getColuna());
+	    	   System.out.println(coord[1] + " " + coord[0]);
+	    	   g2d.setColor(players[i].getColor());
+	  	       g2d.fillOval(coord[1],coord[0], 10, 10);
+	       }
+	       
 	       /* System.out.println(player.coluna);
 			System.out.println(board.Board[1][1]);
 			int[] coord = board.getXY(player.fila, player.coluna);
@@ -76,14 +91,18 @@ public class PNBoard extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		
 		 	int x=e.getX();
 		    int y=e.getY();
+		    int coords[] = board.instancia.getCasa(x, y);
+		    System.out.println(coords[0]);
+		    players[turn].setColuna(coords[0]);
+		    players[turn].setFila(coords[1]);
 		    
-		    x1 = x; y1 = y;
-		    //System.out.println("x: " + x + " y: " + y);
-//		    board.getCasa(x, y);
-		    System.out.println("x: " + x + " y: " + y);
-		   // repaint();
+		    if (turn==players.length)
+		    	turn=0;
+		    
+		    repaint();
 	}
 
 	@Override
