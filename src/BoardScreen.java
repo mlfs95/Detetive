@@ -14,7 +14,7 @@ import java.util.Random;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class BoardScreen extends JFrame implements ActionListener,MouseListener{
+public class BoardScreen extends JFrame implements ActionListener{//,MouseListener{
 	
 	public static BoardScreen instancia = null;
 	public Player players[];
@@ -35,12 +35,12 @@ public class BoardScreen extends JFrame implements ActionListener,MouseListener{
 		
 		//board = new Board();
 		
-		diceImage.setBounds(diceMinX, diceMinY, 95, 106);
-		p.add(diceImage);
+		//diceImage.setBounds(diceMinX, diceMinY, 95, 106);
+	//	p.add(diceImage);
 		
-		addMouseListener(this);
+	//	addMouseListener(this);
 		
-		rollDices();
+		//rollDices();
 		
 		b1 = new JButton("Rolar os dados");
 		p.add(b1);
@@ -50,12 +50,12 @@ public class BoardScreen extends JFrame implements ActionListener,MouseListener{
 		
 		b1.addActionListener(this);
 		
-		this.players = players;
+		/*this.players = players;
 		playerPanel = new JPanel[players.length];
 		for (int i=0; i<players.length; i++){
 			playerPanel[i] = new JPanel();
 		}
-		drawPlayers();
+		drawPlayers(); */
 		
 	}
 	
@@ -66,7 +66,7 @@ public class BoardScreen extends JFrame implements ActionListener,MouseListener{
 		return instancia;
 	}
 	
-	private int rollDices() {
+	/*private int rollDices() {
 		
 		Random randomGenerator = new Random();
 		int diceNumber = randomGenerator.nextInt(6)+1;
@@ -90,34 +90,33 @@ public class BoardScreen extends JFrame implements ActionListener,MouseListener{
 		}
 		
 		return diceNumber;
-	}
+	} */
 	
 
-	private void drawPlayers(){
+/*	private void drawPlayers(){
 		int i;
 		for ( i=0; i<players.length; i++){
 			System.out.println(players[i].personagem);
 			
 			//paintComponent(playerPanel[i].getGraphics(), players[i]);
 		}
-	}
+	} */
 	
-	public void paintComponent(Graphics g, Player player) {
+/*	public void paintComponent(Graphics g, Player player) {
 		System.out.println(player.coluna);
 		System.out.println(board.Board[1][1]);
 		int[] coord = board.getXY(player.fila, player.coluna);
 		
         g.drawOval(coord[0], coord[1], 12, 12);
-    }
+    } */
 	
-	@Override
+/*	@Override
 	public void mouseClicked(MouseEvent e) {
 	    int x=e.getX();
 	    int y=e.getY();
-	    
 	    System.out.println("x: " + x + " y: " + y);
-	    
-	    board.getCasa(x, y);
+	 //   board.getCasa(x, y);
+	   
 	}
 
 	@Override
@@ -142,7 +141,7 @@ public class BoardScreen extends JFrame implements ActionListener,MouseListener{
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
-	}
+	} */
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -157,6 +156,6 @@ public class BoardScreen extends JFrame implements ActionListener,MouseListener{
 			System.exit(1);
 		}
 		
-	}
+	} 
 
 }
