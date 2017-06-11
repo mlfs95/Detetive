@@ -6,6 +6,7 @@ public class Player {
     private int coluna;
     private Character personagem;
     private Color color;
+    private String nome;
     
     public enum Character{
         
@@ -20,31 +21,37 @@ public class Player {
         	fila=0;
             coluna=14;
             color = Color.GREEN;
+            nome = "Rev. Green";
         }
         else if (personagem == Character.Mustard){
         	fila=17;
             coluna=0;
             color = Color.YELLOW;
+            nome = "Coronel Mustard";
         }
         else if (personagem == Character.Peacock){
         	fila=6;
             coluna=23;
             color = Color.BLUE;
+            nome = "Sra. Peacock";
         }
         else if (personagem == Character.Plum){
         	fila=19;
             coluna=23;
             color = Color.CYAN;
+            nome = "Professor Plum";
         }
         else if (personagem == Character.Scarlet){
         	fila=24;
             coluna=7;
             color = Color.RED;
+            nome = "Srta. Scarlet";
         }
         else {
             fila=0;
             coluna=9;
             color = Color.WHITE;
+            nome = "Sra. White";
         }
     }
     
@@ -70,5 +77,9 @@ public class Player {
     
     public Color getColor(){
     	return color;
+    }
+    
+    public String getNome(){
+    	return nome;
     }
 }

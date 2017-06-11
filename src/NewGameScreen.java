@@ -66,13 +66,6 @@ public class NewGameScreen extends JFrame implements ActionListener, ItemListene
 		p.add(cb[4]);
 		p.add(cb[5]);
 		
-//		cb[0].addItemListener(this);
-//		cb[1].addItemListener(this);
-//		cb[2].addItemListener(this);
-//		cb[3].addItemListener(this);
-//		cb[4].addItemListener(this);
-//		cb[5].addItemListener(this);
-		
 		ActionListener cbAction = new ActionListener(){
 			
 			public void actionPerformed(ActionEvent event) {
@@ -99,27 +92,6 @@ public class NewGameScreen extends JFrame implements ActionListener, ItemListene
 		cb[4].addActionListener(cbAction);
 		cb[5].addActionListener(cbAction);
 		
-		// - Image Configuration -
-//		int imageHeight = height/5;
-//		
-//		image[0] = new JLabel();
-//		
-//		image[0].setSize((int) (imageHeight*0.63), imageHeight);
-//		
-//		image[0].setIcon((Icon) new ImageIcon(getClass().getResource("/Suspeitos/Green.jpg")).getImage().getScaledInstance(image[0].getWidth(), image[0].getHeight(), Image.SCALE_DEFAULT));
-//		
-//		
-//		image[1].setSize((int) (imageHeight*0.63), imageHeight);
-//		image[2].setSize((int) (imageHeight*0.63), imageHeight);
-//		image[3].setSize((int) (imageHeight*0.63), imageHeight);
-//		image[4].setSize((int) (imageHeight*0.63), imageHeight);
-//		image[5].setSize((int) (imageHeight*0.63), imageHeight);
-//		
-//		image[0].setLocation(width/2, height*2/4);
-//		
-//		
-//		
-//		p.add(image[0]);
 	}
 	
 	public static NewGameScreen getInstance(){
@@ -191,7 +163,7 @@ public class NewGameScreen extends JFrame implements ActionListener, ItemListene
 			BoardScreen f = BoardScreen.getInstance();
 			f.setSize(700, 725);
 			f.setVisible(true);
-			f.players = players;
+			f.getInstance().setPlayers(players);
 			System.out.println("coluna players[1]" + players[0].getColuna());
 			dispose();
 		}

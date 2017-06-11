@@ -13,9 +13,10 @@ public class PNBoard extends JPanel implements MouseListener{
 	
 	private Image i;
 	public static PNBoard instancia = null;
-	static Board board;
+	private static Board board;
+	private static BoardScreen boardScreen;
 	
-	public Player players[];
+	private Player players[];
 	private JPanel playerPanel[];
 	private Player.Character player;
 	private int x1 = 20, y1 = 20;
@@ -34,13 +35,8 @@ public class PNBoard extends JPanel implements MouseListener{
 			System.out.println(e.getMessage());
 			System.exit(1);
 		}
+		
 		addMouseListener(this);
-/*		this.players = players;
-		playerPanel = new JPanel[players.length];
-		for (int i=0; i<players.length; i++){
-			playerPanel[i] = new JPanel();
-		} */
-//		drawPlayers();
 	}
 	
 	public static PNBoard getInstance(){
@@ -50,63 +46,61 @@ public class PNBoard extends JPanel implements MouseListener{
 		return instancia;
 	}
 	
-/*	private void drawPlayers(){
-		int i;
-		for ( i=0; i<players.length; i++){
-			System.out.println(players[i].personagem);
-			
-			//paintComponent(playerPanel[i].getGraphics(), players[i]);
+	private void isValidMove(int coord[], int diceNumber){
+		
+		int novaColuna = coord[1];
+		int novaLinha = coord[0];
+		int diffx = Math.abs(players[turn].getColuna() - novaColuna);
+		int diffy = Math.abs(players[turn].getFila() - novaLinha);
+		
+		System.out.println("turn: " + turn);
+		
+		if ((diffx+diffy) <= diceNumber) {
+			System.out.println("entrei primeiro if");
+			if(board.getInstance().setCasa(players[turn].getFila(), players[turn].getColuna(), novaLinha, novaColuna) == 0){
+				System.out.println("entrei segundo if");
+				players[turn].setColuna(coord[1]);
+				players[turn].setFila(coord[0]);
+		    
+				turn++;
+		    
+				if (turn==players.length)
+					turn=0;
+		    
+				repaint();
+			}
 		}
-	} */
-	
+	}
 	
 	
 	 @Override
 	    protected void paintComponent(Graphics g) {
-		 	System.out.println("xablau");
+
 	        super.paintComponent(g);
 	        g.drawImage(i, 0, 0, null);
 	        Graphics2D g2d  = (Graphics2D) g;
 	        
-//	       addMouseListener(this);
+	       // BoardScreen.getInstance().turnLabel("Vez de: " + players[turn].getNome());
 	       
-	       players = BoardScreen.instancia.players;
-	       System.out.println(players.length);
+	        players = BoardScreen.getInstance().getPlayers();
+	        System.out.println(players.length);
 	       
-	       for (int i = 0; i<players.length; i++){
-	    	   System.out.println(players[i].getPersonagem() + ": " + players[i].getColuna());
-	    	   int coord[] = board.instancia.getXY(players[i].getFila(), players[i].getColuna());
-	    	   System.out.println(coord[1] + " " + coord[0]);
-	    	   g2d.setColor(players[i].getColor());
-	  	       g2d.fillOval(coord[1],coord[0], 10, 10);
-	       }
-	       
-	       /* System.out.println(player.coluna);
-			System.out.println(board.Board[1][1]);
-			int[] coord = board.getXY(player.fila, player.coluna);
-			
-	        g.drawOval(coord[0], coord[1], 12, 12); */
+	        for (int i = 0; i<players.length; i++){
+
+	        	int coord[] = board.getInstance().getXY(players[i].getFila(), players[i].getColuna());
+	        	g2d.setColor(players[i].getColor());
+	        	g2d.fillOval(coord[1],coord[0], 10, 10);
+	        }
 	    }
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
-		
 		 	int x=e.getX();
 		    int y=e.getY();
-		    int coords[] = Board.instancia.getCasa(x, y);
-		    System.out.println(coords[0]);
-		    players[turn].setColuna(coords[1]);
-		    players[turn].setFila(coords[0]);
+		    int coords[] = Board.getInstance().getLinhaColuna(x, y);
 		    
-		    turn++;
-		    
-		    System.out.println("Y: " + y);
-		    
-		    if (turn==players.length)
-		    	turn=0;
-		    
-		    repaint();
+		    isValidMove(coords, 6);
 	}
 
 	@Override

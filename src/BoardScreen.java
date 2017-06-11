@@ -16,13 +16,14 @@ import java.awt.event.MouseListener;
 
 public class BoardScreen extends JFrame implements ActionListener{
 	
-	public static BoardScreen instancia = null;
-	public Player players[];
-	public Board board;
+	private static BoardScreen instancia = null;
+	private Player players[];
+	private Board board;
 	private int diceMinX = 316;
 	private int diceMinY = 359;
 	private JLabel diceImage = new JLabel();
 	private JButton b1;
+	private JLabel diceLabel;
 	
 	public BoardScreen(String s, int width, int height){
 		
@@ -30,10 +31,8 @@ public class BoardScreen extends JFrame implements ActionListener{
 		
 		board = Board.getInstance();
 		
-		PNBoard p = PNBoard.getInstance();//new PNBoard(width,height);
+		PNBoard p = PNBoard.getInstance();
 		getContentPane().add(p);
-		
-		//board = new Board();
 		
 		diceImage.setBounds(diceMinX, diceMinY, 95, 106);
 		p.add(diceImage);
@@ -46,7 +45,11 @@ public class BoardScreen extends JFrame implements ActionListener{
 		
 		b1.addActionListener(this);
 		
+		diceLabel = new JLabel();
+		p.add(diceLabel);
 		
+		diceLabel.setSize(300, 50);
+		diceLabel.setLocation(width/3-diceLabel.getSize().width/2, height*14/16-b1.getSize().height/2);
 	}
 	
 	public static BoardScreen getInstance(){
@@ -56,18 +59,33 @@ public class BoardScreen extends JFrame implements ActionListener{
 		return instancia;
 	}
 	
+	public void setPlayers(Player players[]){
+		
+		this.players = players;
+	}
+	
+	public Player[] getPlayers(){
+		
+		return players;
+	}
+	
 	public void paintComponent(Graphics g, Player player) {
 		System.out.println(player.getColuna());
-		System.out.println(board.Board[1][1]);
+		System.out.println(board.getCasa(1,1));
 		int[] coord = board.getXY(player.getFila(), player.getColuna());
 		
         g.drawOval(coord[0], coord[1], 12, 12);
     }
 	
+	public void turnLabel(String turnLabel){
+		
+		diceLabel.setText(turnLabel);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == b1 ){
-			//this.setVisible(false);
+
 			DiceScreen f = DiceScreen.getInstance();
 			f.setSize(300,300);
 			f.setVisible(true);
