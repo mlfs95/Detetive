@@ -1,3 +1,4 @@
+package screen;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -8,6 +9,9 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import model.Board;
+import model.Player;
 
 public class PNBoard extends JPanel implements MouseListener{
 	
@@ -22,7 +26,7 @@ public class PNBoard extends JPanel implements MouseListener{
 	private int x1 = 20, y1 = 20;
 	private int turn = 0;
 	
-	public PNBoard(int width, int height){
+	private PNBoard(int width, int height){
 		
 		this.setSize(width, height);
 		try
@@ -100,7 +104,7 @@ public class PNBoard extends JPanel implements MouseListener{
 		    int y=e.getY();
 		    int coords[] = Board.getInstance().getLinhaColuna(x, y);
 		    
-		    isValidMove(coords, 6);
+		    isValidMove(coords, DiceScreen.getInstance().getDice());
 	}
 
 	@Override

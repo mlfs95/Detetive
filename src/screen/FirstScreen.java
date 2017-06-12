@@ -1,3 +1,4 @@
+package screen;
 import javax.swing.*;
 
 import java.awt.*;
@@ -11,7 +12,7 @@ public class FirstScreen extends JFrame implements ActionListener{
 	private JButton b1, b2;
 	//private JCheckBox cb1, cb2, cb3, cb4, cb5, cb6;
 
-	public FirstScreen (String s, int width, int height){
+		private FirstScreen (String s, int width, int height){
 		
 		super(s);
 		

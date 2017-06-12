@@ -1,5 +1,9 @@
+package screen;
 import javax.swing.*;
 import javax.swing.event.*;
+
+import model.Player;
+import model.Player.Character;
 
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -16,7 +20,7 @@ public class NewGameScreen extends JFrame implements ActionListener, ItemListene
 	private int countChecked = 0;
 	private int cbCount;
 	
-	public NewGameScreen (String s, int width, int height){
+		private NewGameScreen (String s, int width, int height){
 		
 		super(s);
 		

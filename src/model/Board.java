@@ -1,3 +1,4 @@
+package model;
 
 public class Board {
 
@@ -23,7 +24,7 @@ public class Board {
 		salaoDeJogosL, salaoDeJogosO;
 	}
 	
-	public Board(){
+	private Board(){
 		
 		linhaMax=25;
 		colunaMax=24;
@@ -306,8 +307,8 @@ public class Board {
 		board[13][20] = Casa.bibliotecaL;
 		board[16][16] = Casa.bibliotecaL;
 		
-		// entradas sala de jantar
-		board[18][6] = Casa.salaDeJantarL;
+		// entradas sala de Estar
+		board[18][6] = Casa.salaDeEstarL;
 		
 		// entradas entrada
 		board[17][11] = Casa.entradaL;

@@ -1,3 +1,5 @@
+package main;
+import screen.FirstScreen;
 
 public class DetetiveMain {
 

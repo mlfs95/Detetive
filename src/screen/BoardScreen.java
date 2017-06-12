@@ -1,6 +1,10 @@
+package screen;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.*;
+
+import model.Board;
+import model.Player;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -25,7 +29,7 @@ public class BoardScreen extends JFrame implements ActionListener{
 	private JButton b1;
 	private JLabel diceLabel;
 	
-	public BoardScreen(String s, int width, int height){
+		private BoardScreen(String s, int width, int height){
 		
 		super(s);
 		
