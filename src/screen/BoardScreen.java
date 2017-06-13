@@ -34,7 +34,7 @@ public class BoardScreen extends JFrame implements ActionListener{
 		
 		super(s);
 		
-		Facade f = new Facade();
+		Facade f = Facade.getInstance();
 		f.startBoard();
 		//board = Board.getInstance();
 		
@@ -92,7 +92,7 @@ public class BoardScreen extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == b1 ){
-			Facade f = new Facade();
+			Facade f = Facade.getInstance();
 			f.startDiceScreen();
 			/*DiceScreen f = DiceScreen.getInstance();
 			f.setSize(300,300);

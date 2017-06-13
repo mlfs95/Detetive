@@ -78,7 +78,7 @@ public class FirstScreen extends JFrame implements ActionListener{
 		/*	NewGameScreen f = NewGameScreen.getInstance();
 			f.setSize(600, 600);	
 			f.setVisible(true); */
-			Facade f = new Facade();
+			Facade f = Facade.getInstance();
 			f.startNewGameScreen();
 			
 			dispose();
