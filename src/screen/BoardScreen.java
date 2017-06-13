@@ -3,6 +3,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.*;
 
+import main.Facade;
 import model.Board;
 import model.Player;
 
@@ -33,7 +34,9 @@ public class BoardScreen extends JFrame implements ActionListener{
 		
 		super(s);
 		
-		board = Board.getInstance();
+		Facade f = new Facade();
+		f.startBoard();
+		//board = Board.getInstance();
 		
 		PNBoard p = PNBoard.getInstance();
 		getContentPane().add(p);
@@ -89,10 +92,11 @@ public class BoardScreen extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == b1 ){
-
-			DiceScreen f = DiceScreen.getInstance();
+			Facade f = new Facade();
+			f.startDiceScreen();
+			/*DiceScreen f = DiceScreen.getInstance();
 			f.setSize(300,300);
-			f.setVisible(true);
+			f.setVisible(true); */
 			
 		}
 		else{

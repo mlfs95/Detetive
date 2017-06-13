@@ -5,12 +5,12 @@ public class DetetiveMain {
 
 	public static void main(String[] args) {
 		
-		FirstScreen f = FirstScreen.getInstance();
-//		FirstScreen f = new FirstScreen("Detetive", 600, 600);
+		Facade NewGame = Facade.getInstance();
+		NewGame.startFirstScreen();
 		
-		f.setSize(600, 600);
-		
-		f.setVisible(true);
+/*		FirstScreen f = FirstScreen.getInstance();		
+		f.setSize(600, 600);		
+		f.setVisible(true); */
 
 	}
 

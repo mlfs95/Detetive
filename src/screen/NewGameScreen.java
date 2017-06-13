@@ -2,6 +2,7 @@ package screen;
 import javax.swing.*;
 import javax.swing.event.*;
 
+import main.Facade;
 import model.Player;
 import model.Player.Character;
 

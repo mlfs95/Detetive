@@ -1,6 +1,8 @@
 package screen;
 import javax.swing.*;
 
+import main.Facade;
+
 import java.awt.*;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -73,10 +75,11 @@ public class FirstScreen extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == b1){
 			this.setVisible(false);
-			NewGameScreen f = NewGameScreen.getInstance();
-			f.setSize(600, 600);
-			
-			f.setVisible(true);
+		/*	NewGameScreen f = NewGameScreen.getInstance();
+			f.setSize(600, 600);	
+			f.setVisible(true); */
+			Facade f = new Facade();
+			f.startNewGameScreen();
 			
 			dispose();
 			
