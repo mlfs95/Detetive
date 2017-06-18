@@ -110,4 +110,16 @@ public class Player {
     public Anotations getAnotations(){
     	return anotations;
     }
+    
+    public Card checkCards(String cardName){
+    	
+    	for (int i = 0; i < cardsQuantity; i++){
+    		
+    		if (cards[i].getName() == cardName){
+    			return cards[i];
+    		}
+    	}
+    	
+    	return null;
+    }
 }

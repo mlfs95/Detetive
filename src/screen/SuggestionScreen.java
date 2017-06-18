@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import model.Card;
+
 public class SuggestionScreen extends JFrame implements ActionListener {
 	private JTextField text1,text2,text3;
 	private JLabel label1,label2,label3;
@@ -57,11 +59,15 @@ public class SuggestionScreen extends JFrame implements ActionListener {
 			weapon = text2.getText();
 			suspect = text1.getText();
 			
+			Card card = PNBoard.getInstance().checkGuess(weapon, suspect);
+			
+			if (card != null){
+				
+				
+			}
 		}
 		else{
 			System.exit(1);
 		}
-		
 	}
-
 }

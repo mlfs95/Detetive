@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import model.Board;
+import model.Card;
 import model.Observable;
 import model.Observer;
 import model.Player;
@@ -136,6 +137,28 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 		}
 	}
 	
+	public Card checkGuess(String weapon, String suspect){
+		
+		for (int i = 0; i < players.length; i++){
+			
+			int turn = this.turn;
+			turn++;
+			
+			if (turn==players.length)
+				turn=0;
+			
+			Card card = players[turn].checkCards(weapon);
+			if (card != null){
+				return card;
+			}
+			card = players[turn].checkCards(suspect);
+			if (card != null){
+				return card;
+			}
+		}
+		
+		return null;
+	}
 	
 	 @Override
 	    protected void paintComponent(Graphics g) {
