@@ -54,25 +54,79 @@ public class PNBoard extends JPanel implements MouseListener{
 		
 		int novaColuna = coord[1];
 		int novaLinha = coord[0];
-		int diffx = Math.abs(players[turn].getColuna() - novaColuna);
-		int diffy = Math.abs(players[turn].getFila() - novaLinha);
 		
-		System.out.println("turn: " + turn);
+		int coordPlayer[] = board.getInstance().checkIsInRoom(players[turn].getFila(), players[turn].getColuna());
 		
-		if ((diffx+diffy) <= diceNumber) {
-			System.out.println("entrei primeiro if");
-			if(board.getInstance().setCasa(players[turn].getFila(), players[turn].getColuna(), novaLinha, novaColuna) == 0){
-				System.out.println("entrei segundo if");
-				players[turn].setColuna(coord[1]);
-				players[turn].setFila(coord[0]);
-		    
-				turn++;
-		    
-				if (turn==players.length)
-					turn=0;
-		    
-				repaint();
+		// Caso o jogador não esteja preso num comodo por outro jogador
+		if (coordPlayer[0] != -1) {
+
+			players[turn].setColuna(coordPlayer[1]);
+			players[turn].setFila(coordPlayer[0]);
+			
+			
+			int diffx = Math.abs(coordPlayer[1] - novaColuna);
+			int diffy = Math.abs(coordPlayer[0] - novaLinha);
+			
+			System.out.println("turn: " + turn);
+			
+			if ((diffx+diffy) <= diceNumber) {
+				
+				System.out.println("entrei primeiro if");
+				
+				int updateFB = board.getInstance().updateBoard(coordPlayer[0], coordPlayer[1], novaLinha, novaColuna);
+				
+				// Se move para uma casa livre
+				if(updateFB == 0){
+					System.out.println("Se movendo para uma casa livre");
+					players[turn].setColuna(coord[1]);
+					players[turn].setFila(coord[0]);
+			    
+					turn++;
+			    
+					if (turn==players.length)
+						turn=0;
+			    
+					repaint();
+				}
+				
+				// Tenta entrar num comodo
+				else if( updateFB == 1){
+
+					System.out.println("tentando entrar num comodo");
+					int novaCoord[] = board.getInstance().enterRoom(coord[0], coord[1]);
+					
+					// caso tenha conseguido entrar num comodo aqui chama a função do palpite
+					if (novaCoord[0] != coord[0] || novaCoord[1] != coord[1]){
+						System.out.println("Hora do palpite!!");
+					}
+					
+					players[turn].setColuna(novaCoord[1]);
+					players[turn].setFila(novaCoord[0]);
+					
+					turn++;
+				    
+					if (turn==players.length)
+						turn=0;
+			    
+					System.out.println(players[turn].getColuna() + ", " + players[turn].getFila());
+					repaint();
+				}
+				
+				// Movimento invalido
+				else if(updateFB == -1){
+					System.out.println("MOVIMENTO INVÁLIDO TENTE NOVAMENTE");
+				}
 			}
+		}
+		else {
+
+			turn++;
+		    
+			if (turn==players.length)
+				turn=0;
+	    
+			System.out.println(players[turn].getColuna() + ", " + players[turn].getFila());
+			repaint();
 		}
 	}
 	
