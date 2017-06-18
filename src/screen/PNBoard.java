@@ -6,14 +6,18 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import model.Board;
+import model.Observable;
+import model.Observer;
 import model.Player;
 
-public class PNBoard extends JPanel implements MouseListener{
+public class PNBoard extends JPanel implements MouseListener,Observable{
 	
 	private Image i;
 	public static PNBoard instancia = null;
@@ -25,6 +29,7 @@ public class PNBoard extends JPanel implements MouseListener{
 	private Player.Character player;
 	private int x1 = 20, y1 = 20;
 	private int turn = 0;
+	private List<Observer> observers = new ArrayList<Observer>();
 	
 	private PNBoard(int width, int height){
 		
@@ -57,7 +62,7 @@ public class PNBoard extends JPanel implements MouseListener{
 		
 		int coordPlayer[] = board.getInstance().checkIsInRoom(players[turn].getFila(), players[turn].getColuna());
 		
-		// Caso o jogador não esteja preso num comodo por outro jogador
+		// Caso o jogador nÃ£o esteja preso num comodo por outro jogador
 		if (coordPlayer[0] != -1) {
 
 			players[turn].setColuna(coordPlayer[1]);
@@ -95,9 +100,10 @@ public class PNBoard extends JPanel implements MouseListener{
 					System.out.println("tentando entrar num comodo");
 					int novaCoord[] = board.getInstance().enterRoom(coord[0], coord[1]);
 					
-					// caso tenha conseguido entrar num comodo aqui chama a função do palpite
+					// caso tenha conseguido entrar num comodo aqui chama a funÃ§Ã£o do palpite
 					if (novaCoord[0] != coord[0] || novaCoord[1] != coord[1]){
-						System.out.println("Hora do palpite!!");
+						//System.out.println("Hora do palpite!!");
+						this.notifyObservers();
 					}
 					
 					players[turn].setColuna(novaCoord[1]);
@@ -114,7 +120,7 @@ public class PNBoard extends JPanel implements MouseListener{
 				
 				// Movimento invalido
 				else if(updateFB == -1){
-					System.out.println("MOVIMENTO INVÁLIDO TENTE NOVAMENTE");
+					System.out.println("MOVIMENTO INVÃ�LIDO TENTE NOVAMENTE");
 				}
 			}
 		}
@@ -183,5 +189,31 @@ public class PNBoard extends JPanel implements MouseListener{
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
-	} 
+	}
+
+	@Override
+	public void addObserver(Observer o) {
+		observers.add(o);
+		
+	}
+
+	@Override
+	public void removeObserver(Observer o) {
+		int index = observers.indexOf(o);
+		if(index > -1){
+			observers.remove(o);
+		}
+		
+	}
+
+	@Override
+	public void notifyObservers() {
+		for(Observer o:observers){
+			//System.out.println("NOTIFICANDO OBSERVERS");
+			o.update();
+		}
+		
+	}
+
+	
 }

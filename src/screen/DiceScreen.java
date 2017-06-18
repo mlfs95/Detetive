@@ -22,13 +22,13 @@ public class DiceScreen extends JFrame implements ActionListener {
 	public DiceScreen(){
 		super();
 		janela = getContentPane();
-		//janela.setLayout(new GridLayout(2,2,1,1));
+		
 		janela.setLayout(null);
-	//	label1 = new JLabel("Valor do dado 1",JLabel.RIGHT);
+	
 		label1 = new JLabel("Valor do dado 1");
 		label1.setBounds(50, 40, 100, 20);
 		
-		//label2 = new JLabel("Valor do dado 2",JLabel.RIGHT);
+		
 		label2 = new JLabel("Valor do dado 2");
 		label2.setBounds(50, 80, 100, 20);
 		
@@ -87,7 +87,7 @@ public class DiceScreen extends JFrame implements ActionListener {
 			}
 			
 			FRDice f = new FRDice(DieValue1, DieValue2);//PNDice(DieValue1, DieValue2);
-			f.setSize(600,600);
+			f.setSize(210,200);
 			f.setVisible(true);
 		}
 		else{
