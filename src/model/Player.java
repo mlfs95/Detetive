@@ -8,6 +8,8 @@ public class Player {
     private Character personagem;
     private Color color;
     private String nome;
+    private int cardsQuantity;
+    private Card cards[];
     
     public enum Character{
         
@@ -64,6 +66,14 @@ public class Player {
     	this.coluna = coluna;
     }
     
+    public void setCard(Card[] cards){
+    	this.cards = cards;
+    }
+    
+    public void setCardsQuantity(int quantity){
+    	this.cardsQuantity = quantity;
+    }
+    
     public int getFila(){
     	return fila;
     }
@@ -82,5 +92,13 @@ public class Player {
     
     public String getNome(){
     	return nome;
+    }
+    
+    public Card[] getCards(){
+    	return cards;
+    }
+    
+    public int getCardsQuantity(){
+    	return cardsQuantity;
     }
 }

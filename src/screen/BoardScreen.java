@@ -7,7 +7,6 @@ import main.Facade;
 import model.Board;
 import model.Card;
 import model.Player;
-import model.SuggestionObserver;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -32,6 +31,7 @@ public class BoardScreen extends JFrame implements ActionListener{
 	private JButton b1;
 	private JLabel diceLabel;
 	private Card cards[];
+	private Card answers[];
 	
 		private BoardScreen(String s, int width, int height){
 		
@@ -61,8 +61,6 @@ public class BoardScreen extends JFrame implements ActionListener{
 		diceLabel.setSize(300, 50);
 		diceLabel.setLocation(width/3-diceLabel.getSize().width/2, height*14/16-b1.getSize().height/2);
 		
-		SuggestionObserver obs = new SuggestionObserver();
-		p.addObserver(obs);
 	}
 	
 	public static BoardScreen getInstance(){
@@ -77,9 +75,19 @@ public class BoardScreen extends JFrame implements ActionListener{
 		this.players = players;
 	}
 	
+	public void setCards(){
+
+		initializeCards();
+		giveCards();
+	}
+	
 	public Player[] getPlayers(){
 		
 		return players;
+	}
+	
+	public Card[] getCards(){
+		return cards;
 	}
 	
 	private void initializeCards(){
@@ -103,15 +111,111 @@ public class BoardScreen extends JFrame implements ActionListener{
 		cards[11] = new Card("Revólver", "Revolver.jpg", 2);
 		
 		// inicializando os cartas dos comodos
-		cards[12] = new Card("Green", "Green.jpg", 1);
-		cards[13] = new Card("Green", "Green.jpg", 1);
-		cards[14] = new Card("Green", "Green.jpg", 1);
-		cards[0] = new Card("Green", "Green.jpg", 1);
-		cards[0] = new Card("Green", "Green.jpg", 1);
-		cards[0] = new Card("Green", "Green.jpg", 1);
-		cards[0] = new Card("Green", "Green.jpg", 1);
-		cards[0] = new Card("Green", "Green.jpg", 1);
-		cards[0] = new Card("Green", "Green.jpg", 1);
+		cards[12] = new Card("Biblioteca", "Biblioteca.jpg", 0);
+		cards[13] = new Card("Cozinha", "Cozinha.jpg", 0);
+		cards[14] = new Card("Entrada", "Entrada.jpg", 0);
+		cards[15] = new Card("Escritório", "Escritorio.jpg", 0);
+		cards[16] = new Card("Jardim de Inverno", "JardimInverno.jpg", 0);
+		cards[17] = new Card("Sala de Estar", "SalaDeEstar.jpg", 0);
+		cards[18] = new Card("Sala de Jantar", "SalaDeJantar.jpg", 0);
+		cards[19] = new Card("Sala de Música", "SalaDeMusica.jpg", 0);
+		cards[20] = new Card("Salão de Jogos", "SalaoDeJogos.jpg", 0);
+	}
+	
+	private void giveCards (){
+		
+		int playersCount = players.length;
+		
+		boolean cardsBool[] = new boolean[21];
+		answers = new Card[3];
+		
+		for(int i = 0; i<21; i++){
+			cardsBool[i] = true;
+		}
+		
+		int aux=0;
+		Random randomGenerator = new Random();
+		int randomNumber;
+		
+		while(aux<3){
+			randomNumber = randomGenerator.nextInt(21);
+			
+			if(aux == 0){	
+				if(cards[randomNumber].getType() == Card.Type.comodo){
+					answers[0] = cards[randomNumber];
+					cardsBool[randomNumber] = false;
+					aux++;
+				}
+			}
+			else if(aux == 1){
+				if(cards[randomNumber].getType() == Card.Type.suspeito){
+					answers[0] = cards[randomNumber];
+					cardsBool[randomNumber] = false;
+					aux++;
+				}
+			}
+			else if(aux == 2){
+				if(cards[randomNumber].getType() == Card.Type.arma){
+					answers[0] = cards[randomNumber];
+					cardsBool[randomNumber] = false;
+					aux++;
+				}
+			}
+		}
+		System.out.println("deu as cartas de resposta");
+		Card playersCards[][] = new Card[6][6];
+		
+		int cardsGiven = 3;
+		int turn = 0;
+		aux = 0;
+		
+		while(cardsGiven < 21){
+			
+			randomNumber = randomGenerator.nextInt(21);
+			while(cardsBool[randomNumber] == false){
+				randomNumber = randomGenerator.nextInt(21);
+			}
+			
+			cardsBool[randomNumber] = false;
+			playersCards[turn][aux] = cards[randomNumber];
+			turn++;
+			cardsGiven++;
+			
+			if (turn == playersCount){
+				turn = 0;
+				aux++;
+			}
+		}
+		
+		for (aux = 0; aux<playersCount; aux++){
+			
+			if (playersCount == 3){
+				players[aux].setCardsQuantity(6);
+				players[aux].setCard(playersCards[aux]);
+			}
+			else if (playersCount == 4){
+				if (aux == 0 || aux == 1){
+					players[aux].setCardsQuantity(5);
+				}
+				else {
+					players[aux].setCardsQuantity(4);
+				}
+				players[aux].setCard(playersCards[aux]);
+			}
+			else if (playersCount == 5){
+				if (aux == 0 || aux == 1 || aux == 2){
+					players[aux].setCardsQuantity(4);
+				}
+				else {
+					players[aux].setCardsQuantity(3);
+				}
+				players[aux].setCard(playersCards[aux]);
+			}
+			else {
+				players[aux].setCardsQuantity(3);
+				players[aux].setCard(playersCards[aux]);
+			}
+		}
 	}
 	
 	public void paintComponent(Graphics g, Player player) {
