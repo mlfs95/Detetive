@@ -6,6 +6,7 @@ import javax.swing.event.*;
 import main.Facade;
 import model.Board;
 import model.Player;
+import model.SuggestionObserver;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -57,6 +58,9 @@ public class BoardScreen extends JFrame implements ActionListener{
 		
 		diceLabel.setSize(300, 50);
 		diceLabel.setLocation(width/3-diceLabel.getSize().width/2, height*14/16-b1.getSize().height/2);
+		
+		SuggestionObserver obs = new SuggestionObserver();
+		p.addObserver(obs);
 	}
 	
 	public static BoardScreen getInstance(){
