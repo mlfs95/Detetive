@@ -5,6 +5,7 @@ import javax.swing.event.*;
 
 import main.Facade;
 import model.Board;
+import model.Card;
 import model.Player;
 
 import java.awt.Graphics;
@@ -29,6 +30,7 @@ public class BoardScreen extends JFrame implements ActionListener{
 	private JLabel diceImage = new JLabel();
 	private JButton b1;
 	private JLabel diceLabel;
+	private Card cards[];
 	
 		private BoardScreen(String s, int width, int height){
 		
@@ -74,6 +76,38 @@ public class BoardScreen extends JFrame implements ActionListener{
 	public Player[] getPlayers(){
 		
 		return players;
+	}
+	
+	private void initializeCards(){
+		
+		cards = new Card[21];
+
+		// inicializando as cartas dos suspeitos
+		cards[0] = new Card("Green", "Green.jpg", 1);
+		cards[1] = new Card("Mustard", "Mustard.jpg", 1);
+		cards[2] = new Card("Peacock", "Peacock.jpg", 1);
+		cards[3] = new Card("Plum", "Plum.jpg", 1);
+		cards[4] = new Card("Scarlet", "Scarlet.jpg", 1);
+		cards[5] = new Card("White", "White.jpg", 1);
+		
+		// inicializando as cartas das armas
+		cards[6] = new Card("Cano", "Cano.jpg", 2);
+		cards[7] = new Card("Castiçal", "Castical.jpg", 2);
+		cards[8] = new Card("Chave inglesa", "ChaveInglesa.jpg", 2);
+		cards[9] = new Card("Corda", "Corda.jpg", 2);
+		cards[10] = new Card("Faca", "Faca.jpg", 2);
+		cards[11] = new Card("Revólver", "Revolver.jpg", 2);
+		
+		// inicializando os cartas dos comodos
+		cards[12] = new Card("Green", "Green.jpg", 1);
+		cards[13] = new Card("Green", "Green.jpg", 1);
+		cards[14] = new Card("Green", "Green.jpg", 1);
+		cards[0] = new Card("Green", "Green.jpg", 1);
+		cards[0] = new Card("Green", "Green.jpg", 1);
+		cards[0] = new Card("Green", "Green.jpg", 1);
+		cards[0] = new Card("Green", "Green.jpg", 1);
+		cards[0] = new Card("Green", "Green.jpg", 1);
+		cards[0] = new Card("Green", "Green.jpg", 1);
 	}
 	
 	public void paintComponent(Graphics g, Player player) {
