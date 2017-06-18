@@ -10,6 +10,7 @@ public class Player {
     private String nome;
     private int cardsQuantity;
     private Card cards[];
+    private Anotations anotations;
     
     public enum Character{
         
@@ -74,6 +75,10 @@ public class Player {
     	this.cardsQuantity = quantity;
     }
     
+    public void setAnotations(Anotations anotations){
+    	this.anotations = anotations;
+    }
+    
     public int getFila(){
     	return fila;
     }
@@ -100,5 +105,9 @@ public class Player {
     
     public int getCardsQuantity(){
     	return cardsQuantity;
+    }
+    
+    public Anotations getAnotations(){
+    	return anotations;
     }
 }
