@@ -121,7 +121,7 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 				
 				// Movimento invalido
 				else if(updateFB == -1){
-					System.out.println("MOVIMENTO INVÃ�LIDO TENTE NOVAMENTE");
+					System.out.println("MOVIMENTO INVALIDO TENTE NOVAMENTE");
 				}
 			}
 		}

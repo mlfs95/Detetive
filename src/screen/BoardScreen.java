@@ -85,7 +85,7 @@ public class BoardScreen extends JFrame implements ActionListener{
 		initializeCards();
 		giveCards();
 		initiaizePlayersAnotations();
-		CardScreen screen = new CardScreen(cards);
+		CardScreen screen = new CardScreen(players[0].getCards(), players[0].getCardsQuantity());
 		screen.setSize(900,900);
 		screen.setVisible(true);
 	}

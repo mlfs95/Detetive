@@ -112,11 +112,9 @@ public class Player {
     }
     
     public Card checkCards(String cardName){
-    	System.out.println("entrei na CheckCards");
+
     	for (int i = 0; i < cardsQuantity; i++){
-    		System.out.println(cards[i].getName() + " == " + cardName);
     		if (new String(cards[i].getName()).equals(cardName)){
-    			System.out.println("entrei ué...");
     			return cards[i];
     		}
     	}
