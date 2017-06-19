@@ -139,22 +139,22 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 	
 	public Card checkGuess(String weapon, String suspect){
 		
-		for (int i = 0; i < players.length; i++){
+		System.out.println("entrei na CheckGuess");
+		for (int i = turn; i < players.length; i++){
 			
-			int turn = this.turn;
-			turn++;
+			if (i==players.length)
+				i=0;
 			
-			if (turn==players.length)
-				turn=0;
-			
-			Card card = players[turn].checkCards(weapon);
+			Card card = players[i].checkCards(weapon);
 			if (card != null){
-				players[this.turn].getAnotations().checkAnotation(card);
+				players[i].getAnotations().checkAnotation(card);
+				System.out.println("Achei arma na mão de: " + i);
 				return card;
 			}
-			card = players[turn].checkCards(suspect);
+			card = players[i].checkCards(suspect);
 			if (card != null){
-				players[this.turn].getAnotations().checkAnotation(card);
+				players[i].getAnotations().checkAnotation(card);
+				System.out.println("Achei suspeito na mão de: " + i);
 				return card;
 			}
 		}

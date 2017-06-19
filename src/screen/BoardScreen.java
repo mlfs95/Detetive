@@ -230,6 +230,14 @@ public class BoardScreen extends JFrame implements ActionListener{
 				players[aux].setCard(playersCards[aux]);
 			}
 		}
+		
+		for (int i = 0; i<players.length; i++){
+			System.out.println("player " + i);
+			
+			for (int j=0; j < players[i].getCardsQuantity(); j++){
+				System.out.println(players[i].getCards()[j].getName());
+			}
+		}
 	}
 	
 	public void paintComponent(Graphics g, Player player) {
