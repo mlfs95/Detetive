@@ -60,11 +60,6 @@ public class SuggestionScreen extends JFrame implements ActionListener {
 			suspect = text1.getText();
 			
 			Card card = PNBoard.getInstance().checkGuess(weapon, suspect);
-			
-			if (card != null){
-				
-				
-			}
 		}
 		else{
 			System.exit(1);

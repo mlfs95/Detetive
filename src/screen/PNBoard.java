@@ -149,10 +149,12 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 			
 			Card card = players[turn].checkCards(weapon);
 			if (card != null){
+				players[this.turn].getAnotations().checkAnotation(card);
 				return card;
 			}
 			card = players[turn].checkCards(suspect);
 			if (card != null){
+				players[this.turn].getAnotations().checkAnotation(card);
 				return card;
 			}
 		}
