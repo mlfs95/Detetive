@@ -30,7 +30,7 @@ public class BoardScreen extends JFrame implements ActionListener{
 	private int diceMinX = 316;
 	private int diceMinY = 359;
 	private JLabel diceImage = new JLabel();
-	private JButton b1;
+	private JButton b1,b2;
 	private JLabel diceLabel;
 	private Card cards[];
 	private Card answers[];
@@ -46,22 +46,25 @@ public class BoardScreen extends JFrame implements ActionListener{
 		PNBoard p = PNBoard.getInstance();
 		getContentPane().add(p);
 		
-		diceImage.setBounds(diceMinX, diceMinY, 95, 106);
-		p.add(diceImage);
+//		diceImage.setBounds(diceMinX, diceMinY, 95, 106);
+//		p.add(diceImage);
 		
 		b1 = new JButton("Rolar os dados");
 		p.add(b1);
-		
 		b1.setSize(200, 50);
 		b1.setLocation(width/2-b1.getSize().width/2, height*14/16-b1.getSize().height/2);
-		
 		b1.addActionListener(this);
 		
-		diceLabel = new JLabel();
-		p.add(diceLabel);
+		b2 = new JButton("Fazer uma Acusação");
+		p.add(b2);
+		b2.setBounds(1000,50,150,150);
+		b2.addActionListener(this);
 		
-		diceLabel.setSize(300, 50);
-		diceLabel.setLocation(width/3-diceLabel.getSize().width/2, height*14/16-b1.getSize().height/2);
+//		diceLabel = new JLabel();
+//		p.add(diceLabel);
+		
+//		diceLabel.setSize(300, 50);
+//		diceLabel.setLocation(width/3-diceLabel.getSize().width/2, height*14/16-b1.getSize().height/2);
 		
 		SuggestionObserver obs = new SuggestionObserver();
 		p.addObserver(obs);
@@ -85,8 +88,8 @@ public class BoardScreen extends JFrame implements ActionListener{
 		initializeCards();
 		giveCards();
 		initiaizePlayersAnotations();
-		CardScreen screen = new CardScreen(players[0].getCards(), players[0].getCardsQuantity());
-		screen.setSize(900,900);
+		CardScreen screen = new CardScreen(players[0].getCards(), players[0].getCardsQuantity(),"Cartas");
+		screen.setSize(1300,500);
 		screen.setVisible(true);
 	}
 	
@@ -261,10 +264,11 @@ public class BoardScreen extends JFrame implements ActionListener{
 		if(e.getSource() == b1 ){
 			Facade f = Facade.getInstance();
 			f.startDiceScreen();
-			/*DiceScreen f = DiceScreen.getInstance();
-			f.setSize(300,300);
-			f.setVisible(true); */
-			
+		}
+		else if(e.getSource() == b2){
+			AccusationScreen screen = new AccusationScreen("Acusação");
+			screen.setSize(300,300);
+			screen.setVisible(true);
 		}
 		else{
 			System.exit(1);

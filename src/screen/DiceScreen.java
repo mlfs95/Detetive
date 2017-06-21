@@ -44,15 +44,12 @@ public class DiceScreen extends JFrame implements ActionListener {
 		janela.add(button = new JButton("OK"));
 		
 		button.setBounds(100,130,80,80);
-		//getRootPane().setDefaultButton(button);
-		//setSize(400,250);
 		
 		text1.addActionListener(this);
 		text2.addActionListener(this);
 		button.addActionListener(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//pack();
-       // setVisible(true);
+
 	}
 	
 	public int getDie1(){

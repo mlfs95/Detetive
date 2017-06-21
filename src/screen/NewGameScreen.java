@@ -169,7 +169,7 @@ public class NewGameScreen extends JFrame implements ActionListener, ItemListene
 			f.setSize(700, 725);
 			f.setVisible(true);
 			f.getInstance().setPlayers(players);
-			f.getInstance().setCards();
+			f.getInstance().setCards(); 
 			System.out.println("coluna players[1]" + players[0].getColuna());
 			dispose();
 		}
