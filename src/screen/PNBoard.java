@@ -30,6 +30,7 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 	private Player.Character player;
 	private int x1 = 20, y1 = 20;
 	private int turn = 0;
+	private boolean canMove = true;
 	private List<Observer> observers = new ArrayList<Observer>();
 	
 	private PNBoard(int width, int height){
@@ -56,16 +57,152 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 		return instancia;
 	}
 	
+	public int getTurn() {
+		return turn;
+	}
+	
+	public void setCanMove(boolean move){
+		canMove = move;
+	}
+	
 	private void isValidMove(int coord[], int diceNumber){
 		
 		int novaColuna = coord[1];
 		int novaLinha = coord[0];
 		
+		if (novaColuna == -1){
+			
+			System.out.println("MOVIMENTO INVÁLIDO");
+			
+			return;
+		}
+		
+		// caso o jogador esteja tentando usar um atalho
+		if (Board.getInstance().getCasa(coord[1], coord[0]) == Board.Casa.fora){
+			
+			if (players[turn].getColuna() == 4 && 
+				players[turn].getFila() == 6){
+				
+				System.out.println("CozinhaO atalho");
+				
+				if (novaColuna >= 17 && novaLinha >= 21){
+					
+					if ( Board.getInstance().getCasa(17, 21) == Board.Casa.escritorioL){
+						
+						Board.getInstance().setCasa(players[turn].getColuna(), players[turn].getFila(), Board.Casa.cozinhaL);
+						
+						players[turn].setColuna(17);
+						players[turn].setFila(21);
+						
+						Board.getInstance().setCasa(players[turn].getColuna(), players[turn].getFila(), Board.Casa.escritorioO);
+						
+						switchTurn();
+						repaint();
+						
+						canMove = false;
+						while (canMove); // espera o palpite ser feito
+						this.notifyObservers();
+						
+						return;
+					}
+				}
+			}
+			else if (players[turn].getColuna() == 17 && 
+					players[turn].getFila() == 21){
+
+				System.out.println("CozinhaO atalho");
+
+				if (novaColuna <= 4 && novaLinha <= 6){
+
+					if ( Board.getInstance().getCasa(4, 6) == Board.Casa.cozinhaL){
+
+						Board.getInstance().setCasa(players[turn].getColuna(), players[turn].getFila(), Board.Casa.escritorioL);
+
+						players[turn].setColuna(4);
+						players[turn].setFila(6);
+
+						Board.getInstance().setCasa(players[turn].getColuna(), players[turn].getFila(), Board.Casa.cozinhaO);
+						switchTurn();
+
+						repaint();
+
+						canMove = false;
+
+						while (canMove); // espera o palpite ser feito
+
+						this.notifyObservers();
+
+						return;
+					}
+				}
+			}
+
+			else if (players[turn].getColuna() == 19 && 
+					players[turn].getFila() == 5){
+
+				System.out.println("CozinhaO atalho");
+
+				if (novaColuna <= 6 && novaLinha >= 19){
+
+					if ( Board.getInstance().getCasa(6, 19) == Board.Casa.salaDeEstarL){
+
+						Board.getInstance().setCasa(players[turn].getColuna(), players[turn].getFila(), Board.Casa.jardimL);
+
+						players[turn].setColuna(6);
+						players[turn].setFila(19);
+
+						Board.getInstance().setCasa(players[turn].getColuna(), players[turn].getFila(), Board.Casa.salaDeEstarO);
+						switchTurn();
+
+						repaint();
+
+						canMove = false;
+
+						while (canMove); // espera o palpite ser feito
+
+						this.notifyObservers();
+
+						return;
+					}
+				}
+			}
+
+			else if (players[turn].getColuna() == 6 && 
+					players[turn].getFila() == 19){
+
+				System.out.println("CozinhaO atalho");
+
+				if (novaColuna >= 19 && novaLinha <= 5){
+
+					if ( Board.getInstance().getCasa(19, 5) == Board.Casa.jardimL){
+
+						Board.getInstance().setCasa(players[turn].getColuna(), players[turn].getFila(), Board.Casa.salaDeEstarL);
+
+						players[turn].setColuna(19);
+						players[turn].setFila(5);
+
+						Board.getInstance().setCasa(players[turn].getColuna(), players[turn].getFila(), Board.Casa.jardimO);
+						switchTurn();
+
+						repaint();
+
+						canMove = false;
+
+						while (canMove); // espera o palpite ser feito
+
+						this.notifyObservers();
+
+						return;
+					}
+				}
+			}
+		}
+		
 		int coordPlayer[] = board.getInstance().checkIsInRoom(players[turn].getFila(), players[turn].getColuna());
 		
 		// Caso o jogador nÃ£o esteja preso num comodo por outro jogador
 		if (coordPlayer[0] != -1) {
-
+			
 			players[turn].setColuna(coordPlayer[1]);
 			players[turn].setFila(coordPlayer[0]);
 			
@@ -87,10 +224,7 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 					players[turn].setColuna(coord[1]);
 					players[turn].setFila(coord[0]);
 			    
-					turn++;
-			    
-					if (turn==players.length)
-						turn=0;
+					switchTurn();
 			    
 					repaint();
 				}
@@ -101,19 +235,20 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 					System.out.println("tentando entrar num comodo");
 					int novaCoord[] = board.getInstance().enterRoom(coord[0], coord[1]);
 					
-					// caso tenha conseguido entrar num comodo aqui chama a funÃ§Ã£o do palpite
+					// caso tenha conseguido entrar num comodo aqui chama a função do palpite
 					if (novaCoord[0] != coord[0] || novaCoord[1] != coord[1]){
-						//System.out.println("Hora do palpite!!");
+						
+						canMove = false;
+						
+						while (canMove); // espera o palpite ser feito
+							
 						this.notifyObservers();
 					}
 					
 					players[turn].setColuna(novaCoord[1]);
 					players[turn].setFila(novaCoord[0]);
 					
-					turn++;
-				    
-					if (turn==players.length)
-						turn=0;
+					switchTurn();
 			    
 					System.out.println(players[turn].getColuna() + ", " + players[turn].getFila());
 					repaint();
@@ -127,34 +262,59 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 		}
 		else {
 
-			turn++;
-		    
-			if (turn==players.length)
-				turn=0;
+			switchTurn();
 	    
 			System.out.println(players[turn].getColuna() + ", " + players[turn].getFila());
 			repaint();
 		}
 	}
 	
+	public void switchTurn(){
+		
+		turn++;
+		
+		if (turn==players.length)
+			turn=0;
+		
+		int i = 0;
+		
+		while (!players[turn].getIsInGame()){
+			
+			i++;
+			turn++;
+		    
+			if (turn==players.length)
+				turn=0;
+			
+			if(players.length-1 == i){
+				
+				int t;
+				
+				for (t = 0; !players[t].getIsInGame(); t++);
+					
+				BoardScreen.getInstance().gameOver(players[t]);
+			}
+		}
+	}
+	
 	public Card checkGuess(String weapon, String suspect){
 		
 		System.out.println("entrei na CheckGuess");
-		for (int i = turn; i < players.length; i++){
+		for (int i = 0, t = turn; i < players.length; i++, t++){
 			
-			if (i==players.length)
-				i=0;
+			if (t==players.length)
+				t=0;
 			
-			Card card = players[i].checkCards(weapon);
+			Card card = players[t].checkCards(weapon);
 			if (card != null){
-				players[i].getAnotations().checkAnotation(card);
-				System.out.println("Achei arma na mão de: " + i);
+				players[t].getAnotations().checkAnotation(card);
+				System.out.println("Achei arma na mão de: " + t);
 				return card;
 			}
-			card = players[i].checkCards(suspect);
+			card = players[t].checkCards(suspect);
 			if (card != null){
-				players[i].getAnotations().checkAnotation(card);
-				System.out.println("Achei suspeito na mão de: " + i);
+				players[t].getAnotations().checkAnotation(card);
+				System.out.println("Achei suspeito na mão de: " + t);
 				return card;
 			}
 		}
@@ -185,11 +345,14 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
+		if (canMove){
+			
 		 	int x=e.getX();
 		    int y=e.getY();
 		    int coords[] = Board.getInstance().getLinhaColuna(x, y);
 		    
 		    isValidMove(coords, DiceScreen.getInstance().getDice());
+		}
 	}
 
 	@Override
@@ -234,7 +397,7 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 	@Override
 	public void notifyObservers() {
 		for(Observer o:observers){
-			//System.out.println("NOTIFICANDO OBSERVERS");
+
 			o.update();
 		}
 		

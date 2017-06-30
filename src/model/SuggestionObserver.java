@@ -20,12 +20,10 @@ public class SuggestionObserver implements Observer{
 	
 	@Override
 	public void update() {
-		//Facade f = Facade.getInstance();
-		//f.InstanceSuggestionScreen();
+
 		s = new SuggestionScreen("Palpite");
 		s.setSize(250,250);
 		s.setVisible(true);
-		//System.out.println("UPDATE");
 		
 	}
 

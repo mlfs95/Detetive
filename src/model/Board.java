@@ -46,6 +46,11 @@ public class Board {
 		return board[y][x];
 	}
 	
+	public void setCasa(int linha, int coluna, Casa casa){
+		
+		board[coluna][linha] = casa;
+	}
+	
 	
 	// retorna 0 caso ele se movimente para uma casa livre
 	// retorna 1 caso tente se movimentar para uma porta de um comodo
@@ -410,6 +415,8 @@ public class Board {
 						board[linha-1][coluna] != Casa.ocupado ){
 					
 					casa = board[linha-1][coluna];
+					System.out.println(casa);
+					
 					if (casa == Casa.bibliotecaL || casa == Casa.cozinhaL || casa == Casa.entradaL ||
 						casa == Casa.escritorioL || casa == Casa.jardimL || casa == Casa.salaDeEstarL || 
 						casa == Casa.salaDeJantarL || casa == Casa.salaDeMusicaL || casa == Casa.salaoDeJogosL){
@@ -445,7 +452,7 @@ public class Board {
 						casa == Casa.salaDeJantarL || casa == Casa.salaDeMusicaL || casa == Casa.salaoDeJogosL){
 						
 						updateDoor(linha,coluna);
-						linha -= 1;
+						coluna -= 1;
 						updateRoom(linha, coluna);
 					}
 				}

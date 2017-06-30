@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import model.Card;
+
 public class AccusationScreen extends JFrame implements ActionListener{
 	private JButton b;
 	private JLabel l1,l2,l3;
@@ -74,11 +76,29 @@ public class AccusationScreen extends JFrame implements ActionListener{
 			suspeito = t1.getText();
 			arma = t2.getText();
 			comodo = t3.getText();
-			dispose();
+			
+			Card[] answers = BoardScreen.getInstance().getAnswers();
+			
+			if (answers[0].getName().equals(comodo) && answers[1].getName().equals(suspeito) && answers[2].getName().equals(arma)){
 				
+				System.out.println("ACERTOU!!!");
+				BoardScreen.getInstance().gameOver(BoardScreen.getInstance().getPlayers()[PNBoard.getInstance().getTurn()]);
+			}
+			else {
+				
+				System.out.println("ERRRRRRROOOOOOOU!!!");
+				BoardScreen.getInstance().wrongGuess(BoardScreen.getInstance().getPlayers()[PNBoard.getInstance().getTurn()]);
+			}
+			
+			PNBoard.getInstance().setCanMove(true);
+			
+			dispose();
 		}
 		else{
+			
 			dispose();
+			
+			PNBoard.getInstance().setCanMove(true);
 		}
 		
 		

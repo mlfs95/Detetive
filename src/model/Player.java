@@ -11,6 +11,7 @@ public class Player {
     private int cardsQuantity;
     private Card cards[];
     private Anotations anotations;
+    private boolean isInGame = true;
     
     public enum Character{
         
@@ -79,6 +80,10 @@ public class Player {
     	this.anotations = anotations;
     }
     
+    public void setIsInGame (boolean isInGame){
+    	this.isInGame = isInGame;
+    }
+    
     public int getFila(){
     	return fila;
     }
@@ -109,6 +114,10 @@ public class Player {
     
     public Anotations getAnotations(){
     	return anotations;
+    }
+    
+    public boolean getIsInGame(){
+    	return isInGame;
     }
     
     public Card checkCards(String cardName){

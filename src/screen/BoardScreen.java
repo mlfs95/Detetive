@@ -41,13 +41,10 @@ public class BoardScreen extends JFrame implements ActionListener{
 		
 		Facade f = Facade.getInstance();
 		f.startBoard();
-		//board = Board.getInstance();
 		
 		PNBoard p = PNBoard.getInstance();
 		getContentPane().add(p);
 		
-//		diceImage.setBounds(diceMinX, diceMinY, 95, 106);
-//		p.add(diceImage);
 		
 		b1 = new JButton("Rolar os dados");
 		p.add(b1);
@@ -59,12 +56,6 @@ public class BoardScreen extends JFrame implements ActionListener{
 		p.add(b2);
 		b2.setBounds(1000,50,150,150);
 		b2.addActionListener(this);
-		
-//		diceLabel = new JLabel();
-//		p.add(diceLabel);
-		
-//		diceLabel.setSize(300, 50);
-//		diceLabel.setLocation(width/3-diceLabel.getSize().width/2, height*14/16-b1.getSize().height/2);
 		
 		SuggestionObserver obs = new SuggestionObserver();
 		p.addObserver(obs);
@@ -108,6 +99,25 @@ public class BoardScreen extends JFrame implements ActionListener{
 	
 	public Card[] getCards(){
 		return cards;
+	}
+	
+	public Card[] getAnswers(){
+		return answers;
+	}
+
+	public void wrongGuess(Player loser){
+		
+		loser.setIsInGame(false);
+		loser.setColuna(18);
+		loser.setFila(0);
+		
+		PNBoard.getInstance().switchTurn();
+		PNBoard.getInstance().repaint();
+	}
+	
+	public void gameOver(Player winner){
+		
+		System.out.println("Acabou o jogo! " + winner.getNome() + " ganhou!!!");
 	}
 	
 	private void initializeCards(){
@@ -169,20 +179,22 @@ public class BoardScreen extends JFrame implements ActionListener{
 			}
 			else if(aux == 1){
 				if(cards[randomNumber].getType() == Card.Type.suspeito){
-					answers[0] = cards[randomNumber];
+					answers[1] = cards[randomNumber];
 					cardsBool[randomNumber] = false;
 					aux++;
 				}
 			}
 			else if(aux == 2){
 				if(cards[randomNumber].getType() == Card.Type.arma){
-					answers[0] = cards[randomNumber];
+					answers[2] = cards[randomNumber];
 					cardsBool[randomNumber] = false;
 					aux++;
 				}
 			}
 		}
-		System.out.println("deu as cartas de resposta");
+		System.out.println("As cartas de resposta são: ");
+		System.out.println(answers[0].getName() + ", " + answers[1].getName() + ", " + answers[2].getName());
+		
 		Card playersCards[][] = new Card[6][6];
 		
 		int cardsGiven = 3;
@@ -269,6 +281,8 @@ public class BoardScreen extends JFrame implements ActionListener{
 			AccusationScreen screen = new AccusationScreen("Acusação");
 			screen.setSize(300,300);
 			screen.setVisible(true);
+			
+			PNBoard.getInstance().setCanMove(false);
 		}
 		else{
 			System.exit(1);
