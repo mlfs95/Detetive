@@ -13,8 +13,7 @@ public class PNCards extends JPanel{
 	public PNCards(Card[] cardlist, int cardsQuantity){
 		this.cards = cardlist;
 		this.cardsQuantity = cardsQuantity;
-	//	for(Card p:cardlist){
-	//	}
+	
 	}
 	
 	 @Override
@@ -26,8 +25,6 @@ public class PNCards extends JPanel{
 	        	g.drawImage(cards[j].getImage(), i, 0, null);
 	        	i = i+200;
 	        }
-	        
-	        //g.drawImage(i1, 0, 0, null);
 	                  
 	    } 
 

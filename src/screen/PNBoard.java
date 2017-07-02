@@ -12,11 +12,13 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import main.Facade;
 import model.Board;
 import model.Card;
 import model.Observable;
 import model.Observer;
 import model.Player;
+import model.SuggestionObserver;
 
 public class PNBoard extends JPanel implements MouseListener,Observable{
 	
@@ -32,6 +34,8 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 	private int turn = 0;
 	private boolean canMove = true;
 	private List<Observer> observers = new ArrayList<Observer>();
+	private SuggestionObserver suggestionobserver;
+	private CardScreen cardscreen;
 	
 	private PNBoard(int width, int height){
 		
@@ -48,6 +52,7 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 		}
 		
 		addMouseListener(this);
+
 	}
 	
 	public static PNBoard getInstance(){
@@ -69,7 +74,7 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 		
 		int novaColuna = coord[1];
 		int novaLinha = coord[0];
-		
+		suggestionobserver = BoardScreen.getInstance().getSuggestionObserver();
 		if (novaColuna == -1){
 			
 			System.out.println("MOVIMENTO INVÁLIDO");
@@ -96,13 +101,17 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 						
 						Board.getInstance().setCasa(players[turn].getColuna(), players[turn].getFila(), Board.Casa.escritorioO);
 						
-						switchTurn();
+					//	switchTurn();
+					//	this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
+						//BoardScreen.getInstance().setCardScreen(turn);
 						repaint();
-						
+						this.notifyObservers(suggestionobserver);
 						canMove = false;
 						while (canMove); // espera o palpite ser feito
-						this.notifyObservers();
 						
+					//	this.notifyObservers(suggestionobserver);
+						switchTurn();
+						this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
 						return;
 					}
 				}
@@ -122,15 +131,19 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 						players[turn].setFila(6);
 
 						Board.getInstance().setCasa(players[turn].getColuna(), players[turn].getFila(), Board.Casa.cozinhaO);
-						switchTurn();
-
+						
+					//	switchTurn();
+					//	this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
+					//	BoardScreen.getInstance().setCardScreen(turn);
 						repaint();
-
+						this.notifyObservers(suggestionobserver);
 						canMove = false;
 
 						while (canMove); // espera o palpite ser feito
 
-						this.notifyObservers();
+				//		this.notifyObservers(suggestionobserver);
+						switchTurn();
+						this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
 
 						return;
 					}
@@ -152,15 +165,19 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 						players[turn].setFila(19);
 
 						Board.getInstance().setCasa(players[turn].getColuna(), players[turn].getFila(), Board.Casa.salaDeEstarO);
-						switchTurn();
-
+						
+					//	switchTurn();
+				//		this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
+				//		BoardScreen.getInstance().setCardScreen(turn);
 						repaint();
-
+						this.notifyObservers(suggestionobserver);
 						canMove = false;
 
 						while (canMove); // espera o palpite ser feito
 
-						this.notifyObservers();
+					//	this.notifyObservers(suggestionobserver);
+						switchTurn();
+						this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
 
 						return;
 					}
@@ -182,15 +199,19 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 						players[turn].setFila(5);
 
 						Board.getInstance().setCasa(players[turn].getColuna(), players[turn].getFila(), Board.Casa.jardimO);
-						switchTurn();
-
+					
+						//switchTurn();
+					//	this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
+					//	BoardScreen.getInstance().setCardScreen(turn);
 						repaint();
-
+						this.notifyObservers(suggestionobserver);
 						canMove = false;
 
 						while (canMove); // espera o palpite ser feito
 
-						this.notifyObservers();
+					//	this.notifyObservers(suggestionobserver);
+						switchTurn();
+						this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
 
 						return;
 					}
@@ -225,7 +246,8 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 					players[turn].setFila(coord[0]);
 			    
 					switchTurn();
-			    
+					this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
+				//	BoardScreen.getInstance().setCardScreen(turn);
 					repaint();
 				}
 				
@@ -237,19 +259,20 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 					
 					// caso tenha conseguido entrar num comodo aqui chama a função do palpite
 					if (novaCoord[0] != coord[0] || novaCoord[1] != coord[1]){
-						
+						this.notifyObservers(suggestionobserver);
 						canMove = false;
 						
 						while (canMove); // espera o palpite ser feito
 							
-						this.notifyObservers();
+						//this.notifyObservers(suggestionobserver);
 					}
 					
 					players[turn].setColuna(novaCoord[1]);
 					players[turn].setFila(novaCoord[0]);
 					
 					switchTurn();
-			    
+					this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
+				//	BoardScreen.getInstance().setCardScreen(turn);
 					System.out.println(players[turn].getColuna() + ", " + players[turn].getFila());
 					repaint();
 				}
@@ -263,14 +286,17 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 		else {
 
 			switchTurn();
-	    
+			this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
+			//BoardScreen.getInstance().setCardScreen(turn);
 			System.out.println(players[turn].getColuna() + ", " + players[turn].getFila());
 			repaint();
 		}
 	}
 	
 	public void switchTurn(){
+		BoardScreen.getInstance().getCardScreen().dispose();
 		
+	
 		turn++;
 		
 		if (turn==players.length)
@@ -395,12 +421,13 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 	}
 
 	@Override
-	public void notifyObservers() {
-		for(Observer o:observers){
-
-			o.update();
+	public void notifyObservers(Observer o) {
+		for(Observer p:observers){
+			if(p == o){
+				p.update();
+			}
 		}
-		
+			//	o.update();
 	}
 
 	

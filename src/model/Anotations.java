@@ -4,6 +4,7 @@ public class Anotations {
 	private boolean comodos[];
 	private boolean armas[];
 	private boolean suspeitos[];
+//	private static Anotations instance;
 
 	public Anotations (Card[] cards, int cardsQuantity){
 		
@@ -133,4 +134,11 @@ public class Anotations {
 			}
 		}
 	}
+	
+/*	public static Anotations getInstance(Card[] cards, int cardsqtd){
+		if(instance == null){
+			instance = new Anotations(cards,cardsqtd);
+		}
+		return instance;
+	} */
 }

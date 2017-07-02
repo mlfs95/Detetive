@@ -7,6 +7,8 @@ import main.Facade;
 import model.Anotations;
 import model.Board;
 import model.Card;
+import model.CardsObserver;
+import model.NotesObserver;
 import model.Player;
 import model.SuggestionObserver;
 
@@ -30,10 +32,14 @@ public class BoardScreen extends JFrame implements ActionListener{
 	private int diceMinX = 316;
 	private int diceMinY = 359;
 	private JLabel diceImage = new JLabel();
-	private JButton b1,b2;
+	private JButton b1,b2,b3;
 	private JLabel diceLabel;
 	private Card cards[];
 	private Card answers[];
+	private CardScreen screen;
+	private SuggestionObserver obs;
+	private CardsObserver obs2;
+	private NotesObserver obs3;
 	
 		private BoardScreen(String s, int width, int height){
 		
@@ -57,9 +63,17 @@ public class BoardScreen extends JFrame implements ActionListener{
 		b2.setBounds(1000,50,150,150);
 		b2.addActionListener(this);
 		
-		SuggestionObserver obs = new SuggestionObserver();
-		p.addObserver(obs);
+		b3 = new JButton("Salvar jogo");
+		p.add(b3);
+		b3.setBounds(300,50,150,150);
+		b3.addActionListener(this);
 		
+		obs = new SuggestionObserver();
+		obs2 = new CardsObserver();
+		obs3 = new NotesObserver();
+		p.addObserver(obs);
+		p.addObserver(obs2);
+		p.addObserver(obs3);
 	}
 	
 	public static BoardScreen getInstance(){
@@ -79,7 +93,14 @@ public class BoardScreen extends JFrame implements ActionListener{
 		initializeCards();
 		giveCards();
 		initiaizePlayersAnotations();
-		CardScreen screen = new CardScreen(players[0].getCards(), players[0].getCardsQuantity(),"Cartas");
+		//screen = new CardScreen(players[0].getCards(), players[0].getCardsQuantity(),"Cartas");
+		//screen.setSize(1300,500);
+		//screen.setVisible(true);
+
+	}
+	
+	public void setCardScreen(int turn){
+		screen = new CardScreen(players[turn].getCards(), players[turn].getCardsQuantity(),"Cartas");
 		screen.setSize(1300,500);
 		screen.setVisible(true);
 	}
@@ -104,6 +125,22 @@ public class BoardScreen extends JFrame implements ActionListener{
 	public Card[] getAnswers(){
 		return answers;
 	}
+	
+	public SuggestionObserver getSuggestionObserver(){
+		return obs;
+	}
+	
+	public CardScreen getCardScreen(){
+		return screen;
+	}
+	
+	public CardsObserver getCardsObserver(){
+		return obs2;
+	}
+	
+	public NotesObserver getNotesObserver(){
+		return obs3;
+	}
 
 	public void wrongGuess(Player loser){
 		
@@ -118,6 +155,7 @@ public class BoardScreen extends JFrame implements ActionListener{
 	public void gameOver(Player winner){
 		
 		System.out.println("Acabou o jogo! " + winner.getNome() + " ganhou!!!");
+		Facade.getInstance().startGameOverScreen(winner.getNome());
 	}
 	
 	private void initializeCards(){
@@ -258,18 +296,18 @@ public class BoardScreen extends JFrame implements ActionListener{
 		}
 	}
 	
-	public void paintComponent(Graphics g, Player player) {
+/*	public void paintComponent(Graphics g, Player player) {
 		System.out.println(player.getColuna());
 		System.out.println(board.getCasa(1,1));
 		int[] coord = board.getXY(player.getFila(), player.getColuna());
 		
         g.drawOval(coord[0], coord[1], 12, 12);
-    }
+    } 
 	
 	public void turnLabel(String turnLabel){
 		
 		diceLabel.setText(turnLabel);
-	}
+	} */
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -283,6 +321,9 @@ public class BoardScreen extends JFrame implements ActionListener{
 			screen.setVisible(true);
 			
 			PNBoard.getInstance().setCanMove(false);
+		}
+		else if(e.getSource() == b3){
+			
 		}
 		else{
 			System.exit(1);

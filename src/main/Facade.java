@@ -1,5 +1,7 @@
 package main;
+import model.Anotations;
 import model.Board;
+import model.Card;
 import model.Player;
 import screen.*;
 
@@ -11,9 +13,12 @@ public class Facade {
 	private Player player;
 	private FirstScreen firstscreen;
 	private NewGameScreen newgamescreen;
+	private GameOverScreen gameoverscreen;
+	private Anotations anotations;
+	private AnotationsScreen notescreen;
 	
 	public Facade(){
-		//firstscreen = FirstScreen.getInstance();
+		
 	}
 
 	public void startFirstScreen(){
@@ -44,9 +49,21 @@ public class Facade {
 		dicescreen.setVisible(true);
 	}
 	
-	/*public void startPlayer(){
-		players = 
-	}*/
+	public void startGameOverScreen(String s){
+		gameoverscreen = GameOverScreen.getInstance(s);
+		gameoverscreen.setSize(600,600);
+		gameoverscreen.setVisible(true);
+	}
+	
+/*	public void getPlayerNotes(Card[] cards, int cardsqtd){
+		anotations = Anotations.getInstance(cards, cardsqtd);
+	}
+	
+	public void getAnotationsScreen(String s){
+		notescreen = AnotationsScreen.getInstance(s);
+		notescreen.setSize(300,500);
+		notescreen.setVisible(true);
+	} */
 	
 	public static Facade getInstance(){
 		if(instancia == null){
