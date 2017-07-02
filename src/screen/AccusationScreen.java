@@ -90,7 +90,7 @@ public class AccusationScreen extends JFrame implements ActionListener{
 				BoardScreen.getInstance().wrongGuess(BoardScreen.getInstance().getPlayers()[PNBoard.getInstance().getTurn()]);
 			}
 			
-			PNBoard.getInstance().setCanMove(true);
+			PNBoard.getInstance().canMoveAgain();
 			
 			dispose();
 		}
@@ -98,7 +98,7 @@ public class AccusationScreen extends JFrame implements ActionListener{
 			
 			dispose();
 			
-			PNBoard.getInstance().setCanMove(true);
+			//PNBoard.getInstance().setCanMove(true);
 		}
 		
 		

@@ -66,8 +66,15 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 		return turn;
 	}
 	
-	public void setCanMove(boolean move){
-		canMove = move;
+	public void setCanMove(boolean canMove){
+		this.canMove = canMove;
+	}
+	
+	public void canMoveAgain(){
+		
+		canMove = true;
+		
+		switchTurn();
 	}
 	
 	private void isValidMove(int coord[], int diceNumber){
@@ -78,6 +85,11 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 		if (novaColuna == -1){
 			
 			System.out.println("MOVIMENTO INVÁLIDO");
+			
+			return;
+		}
+		
+		if (!canMove){
 			
 			return;
 		}
@@ -101,17 +113,12 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 						
 						Board.getInstance().setCasa(players[turn].getColuna(), players[turn].getFila(), Board.Casa.escritorioO);
 						
-					//	switchTurn();
-					//	this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
-						//BoardScreen.getInstance().setCardScreen(turn);
-						repaint();
 						this.notifyObservers(suggestionobserver);
-						canMove = false;
-						while (canMove); // espera o palpite ser feito
 						
-					//	this.notifyObservers(suggestionobserver);
-						switchTurn();
-						this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
+						canMove = false;
+						
+						repaint();
+						
 						return;
 					}
 				}
@@ -131,20 +138,13 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 						players[turn].setFila(6);
 
 						Board.getInstance().setCasa(players[turn].getColuna(), players[turn].getFila(), Board.Casa.cozinhaO);
-						
-					//	switchTurn();
-					//	this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
-					//	BoardScreen.getInstance().setCardScreen(turn);
-						repaint();
+
 						this.notifyObservers(suggestionobserver);
+						
 						canMove = false;
-
-						while (canMove); // espera o palpite ser feito
-
-				//		this.notifyObservers(suggestionobserver);
-						switchTurn();
-						this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
-
+						
+						repaint();
+						
 						return;
 					}
 				}
@@ -166,18 +166,11 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 
 						Board.getInstance().setCasa(players[turn].getColuna(), players[turn].getFila(), Board.Casa.salaDeEstarO);
 						
-					//	switchTurn();
-				//		this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
-				//		BoardScreen.getInstance().setCardScreen(turn);
-						repaint();
 						this.notifyObservers(suggestionobserver);
+						
 						canMove = false;
 
-						while (canMove); // espera o palpite ser feito
-
-					//	this.notifyObservers(suggestionobserver);
-						switchTurn();
-						this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
+						repaint();
 
 						return;
 					}
@@ -200,19 +193,11 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 
 						Board.getInstance().setCasa(players[turn].getColuna(), players[turn].getFila(), Board.Casa.jardimO);
 					
-						//switchTurn();
-					//	this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
-					//	BoardScreen.getInstance().setCardScreen(turn);
-						repaint();
 						this.notifyObservers(suggestionobserver);
 						canMove = false;
-
-						while (canMove); // espera o palpite ser feito
-
-					//	this.notifyObservers(suggestionobserver);
-						switchTurn();
-						this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
-
+						
+						repaint();
+						
 						return;
 					}
 				}
@@ -246,8 +231,7 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 					players[turn].setFila(coord[0]);
 			    
 					switchTurn();
-					this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
-				//	BoardScreen.getInstance().setCardScreen(turn);
+
 					repaint();
 				}
 				
@@ -260,9 +244,10 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 					// caso tenha conseguido entrar num comodo aqui chama a função do palpite
 					if (novaCoord[0] != coord[0] || novaCoord[1] != coord[1]){
 						this.notifyObservers(suggestionobserver);
+						
 						canMove = false;
 						
-						while (canMove); // espera o palpite ser feito
+						repaint();
 							
 						//this.notifyObservers(suggestionobserver);
 					}
@@ -270,11 +255,9 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 					players[turn].setColuna(novaCoord[1]);
 					players[turn].setFila(novaCoord[0]);
 					
-					switchTurn();
-					this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
-				//	BoardScreen.getInstance().setCardScreen(turn);
-					System.out.println(players[turn].getColuna() + ", " + players[turn].getFila());
-					repaint();
+					//	this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
+					//	BoardScreen.getInstance().setCardScreen(turn);
+					
 				}
 				
 				// Movimento invalido
@@ -286,7 +269,7 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 		else {
 
 			switchTurn();
-			this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
+			//this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
 			//BoardScreen.getInstance().setCardScreen(turn);
 			System.out.println(players[turn].getColuna() + ", " + players[turn].getFila());
 			repaint();
@@ -321,6 +304,8 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 				BoardScreen.getInstance().gameOver(players[t]);
 			}
 		}
+		
+		this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
 	}
 	
 	public Card checkGuess(String weapon, String suspect){
