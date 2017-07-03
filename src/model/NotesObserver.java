@@ -8,7 +8,7 @@ public class NotesObserver implements Observer {
 	@Override
 	public void update() {
 		
-	//	BoardScreen.getInstance().setAnotationsScreen(PNBoard.getInstance().getTurn());
+		BoardScreen.getInstance().setAnotationsScreen(PNBoard.getInstance().getTurn());
 	}
 
 }

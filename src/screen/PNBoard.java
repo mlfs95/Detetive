@@ -50,7 +50,7 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 			System.out.println(e.getMessage());
 			System.exit(1);
 		}
-		
+
 		addMouseListener(this);
 
 	}

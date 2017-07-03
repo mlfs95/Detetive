@@ -36,11 +36,11 @@ public class BoardScreen extends JFrame implements ActionListener{
 	private JLabel diceLabel;
 	private Card cards[];
 	private Card answers[];
-	private CardScreen screen;
+	private CardScreen cardScreen;
+	private AnotationsScreen anotationsScreen;
 	private SuggestionObserver obs;
 	private CardsObserver obs2;
 	private NotesObserver obs3;
-	private AnotationsScreen anotationsscreen;
 	
 		private BoardScreen(String s, int width, int height){
 		
@@ -75,6 +75,8 @@ public class BoardScreen extends JFrame implements ActionListener{
 		p.addObserver(obs);
 		p.addObserver(obs2);
 		p.addObserver(obs3);
+		
+		//PNBoard.getInstance().notifyObservers(BoardScreen.getInstance().getNotesObserver());
 	}
 	
 	public static BoardScreen getInstance(){
@@ -94,22 +96,18 @@ public class BoardScreen extends JFrame implements ActionListener{
 		initializeCards();
 		giveCards();
 		initiaizePlayersAnotations();
-		//screen = new CardScreen(players[0].getCards(), players[0].getCardsQuantity(),"Cartas");
-		//screen.setSize(1300,500);
-		//screen.setVisible(true);
-
 	}
 	
 	public void setCardScreen(int turn){
-		screen = new CardScreen(players[turn].getCards(), players[turn].getCardsQuantity(),"Cartas");
-		screen.setSize(1300,500);
-		screen.setVisible(true);
+		cardScreen = new CardScreen(players[turn].getCards(), players[turn].getCardsQuantity(),"Cartas");
+		cardScreen.setSize(1300,500);
+		cardScreen.setVisible(true);
 	}
 	
 	public void setAnotationsScreen(int turn){
-		anotationsscreen = new AnotationsScreen(players[turn],"Bloco de Notas");
-		anotationsscreen.setSize(300,600);
-		anotationsscreen.setVisible(true);
+		anotationsScreen = new AnotationsScreen(players[turn], "Notas", 1300, 500);
+		anotationsScreen.setSize(1300,500);
+		anotationsScreen.setVisible(true);
 	}
 	
 	private void initiaizePlayersAnotations(){
@@ -138,11 +136,11 @@ public class BoardScreen extends JFrame implements ActionListener{
 	}
 	
 	public CardScreen getCardScreen(){
-		return screen;
+		return cardScreen;
 	}
 	
-	public AnotationsScreen getAnotationsScreen(){
-		return anotationsscreen;
+	public AnotationsScreen getAnoationsScreen(){
+		return anotationsScreen;
 	}
 	
 	public CardsObserver getCardsObserver(){

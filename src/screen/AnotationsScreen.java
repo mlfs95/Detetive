@@ -4,12 +4,13 @@ import java.awt.Container;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import model.Player;
 
 public class AnotationsScreen extends JFrame {
 	
-	private JLabel[] labels;// = new JLabel[21];
+	private JLabel labels[] = new JLabel[21];
 	private Container screen;
 	private int i = 0,pos = 20;
 	private boolean comodos[];
@@ -20,11 +21,16 @@ public class AnotationsScreen extends JFrame {
 	private String armasnomes[];
 	//private static AnotationsScreen instance;
 	
-	public AnotationsScreen(Player player,String s){
+	public AnotationsScreen(Player player,String s, int width, int height){
 		super(s);
-		
+		System.out.println("entrei na anotation");
 		screen = getContentPane();
 		screen.setLayout(null);
+		
+		JPanel p = new JPanel();
+		p.setLayout(null);
+		p.setSize(width, height);
+		getContentPane().add(p);
 		
 		comodos = player.getAnotations().getComodos();
 		suspeitos = player.getAnotations().getSuspeitos();
@@ -35,28 +41,33 @@ public class AnotationsScreen extends JFrame {
 		
 		for(int cont = 0; cont < 6; cont++){
 			if(suspeitos[cont] == true){
-				labels[i] = new JLabel(suspeitosnomes[cont]);
-				labels[i].setBounds(20, pos, 50, 50);
+				
+				JLabel label = new JLabel(suspeitosnomes[cont]);
+				label.setBounds(20, pos, 250, 50);
 				i++;
 				pos = pos + 20;
+				System.out.println(label.getText());
+				p.add(label);
 			}
 		}
 		
 		for(int cont = 0; cont < 9; cont++){
 			if(comodos[cont] == true){
-				labels[i] = new JLabel(comodosnomes[cont]);
-				labels[i].setBounds(20, pos, 50, 50);
+				JLabel label = new JLabel(comodosnomes[cont]);
+				label.setBounds(20, pos, 250, 50);
 				i++;
 				pos = pos + 20;
+				p.add(label);
 			}
 		}
 		
 		for(int cont = 0; cont < 6; cont++){
 			if(armas[cont] == true){
-				labels[i] = new JLabel(armasnomes[cont]);
-				labels[i].setBounds(20, pos, 50, 50);
+				JLabel label = new JLabel(armasnomes[cont]);
+				label.setBounds(20, pos, 250, 50);
 				i++;
 				pos = pos + 20;
+				p.add(label);
 			}
 		}
 		
