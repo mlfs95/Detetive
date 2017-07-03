@@ -306,6 +306,7 @@ public class PNBoard extends JPanel implements MouseListener,Observable{
 		}
 		
 		this.notifyObservers(BoardScreen.getInstance().getCardsObserver());
+		this.notifyObservers(BoardScreen.getInstance().getNotesObserver());
 	}
 	
 	public Card checkGuess(String weapon, String suspect){
