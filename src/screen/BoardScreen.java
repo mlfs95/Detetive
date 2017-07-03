@@ -40,6 +40,7 @@ public class BoardScreen extends JFrame implements ActionListener{
 	private SuggestionObserver obs;
 	private CardsObserver obs2;
 	private NotesObserver obs3;
+	private AnotationsScreen anotationsscreen;
 	
 		private BoardScreen(String s, int width, int height){
 		
@@ -105,6 +106,12 @@ public class BoardScreen extends JFrame implements ActionListener{
 		screen.setVisible(true);
 	}
 	
+	public void setAnotationsScreen(int turn){
+		anotationsscreen = new AnotationsScreen(players[turn],"Bloco de Notas");
+		anotationsscreen.setSize(300,600);
+		anotationsscreen.setVisible(true);
+	}
+	
 	private void initiaizePlayersAnotations(){
 		
 		for (int i = 0; i < players.length; i++){
@@ -132,6 +139,10 @@ public class BoardScreen extends JFrame implements ActionListener{
 	
 	public CardScreen getCardScreen(){
 		return screen;
+	}
+	
+	public AnotationsScreen getAnotationsScreen(){
+		return anotationsscreen;
 	}
 	
 	public CardsObserver getCardsObserver(){

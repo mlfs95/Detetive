@@ -51,7 +51,7 @@ public class Facade {
 	
 	public void startGameOverScreen(String s){
 		gameoverscreen = GameOverScreen.getInstance(s);
-		gameoverscreen.setSize(600,600);
+		gameoverscreen.setSize(300,300);
 		gameoverscreen.setVisible(true);
 	}
 	
